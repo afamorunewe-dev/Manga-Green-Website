@@ -1,206 +1,921 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Manga Green</title>
-    <link rel="icon" type="image/x-icon" href="/FaviCon2.png" />
-    <style>
-      :root {
-        color-scheme: light;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MangaGreen - Your Manga Reading Platform</title>
+  <link rel="icon" type="image/x-icon" href="Manga%20Green%20Favicon.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      * {
-        box-sizing: border-box;
-      }
+    :root {
+      --primary-color: #0f5f2d;
+      --secondary-color: #2d7c47;
+      --accent-color: #c62828;
+      --light-bg: #f5f5f5;
+      --dark-bg: #1a1a1a;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --text-dark: #12321f;
+      --text-light: #f0f0f0;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        color: #12321f;
-        min-height: 100vh;
-        position: relative;
-        overflow-x: hidden;
-        background:
-          radial-gradient(
-            circle at 20% 20%,
-            rgba(255, 255, 255, 0.16),
-            transparent 24%
-          ),
-          radial-gradient(
-            circle at 80% 0%,
-            rgba(255, 214, 102, 0.14),
-            transparent 22%
-          ),
-          linear-gradient(
-            135deg,
-            #071d15 0%,
-            #14452c 40%,
-            #2d7c47 75%,
-            #8fdb75 100%
-          );
-      }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-dark);
+      background: linear-gradient(135deg, #071d15 0%, #14452c 40%, #2d7c47 75%, #8fdb75 100%);
+      min-height: 100vh;
+      transition: var(--transition);
+      overflow-x: hidden;
+    }
 
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(255, 255, 255, 0.3),
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at bottom right,
-            rgba(255, 255, 255, 0.16),
-            transparent 28%
-          ),
-          linear-gradient(
-            120deg,
-            rgba(255, 255, 255, 0.12) 0 25%,
-            transparent 25% 50%,
-            rgba(255, 255, 255, 0.12) 50% 75%,
-            transparent 75% 100%
-          );
-        background-size:
-          auto,
-          auto,
-          26px 26px;
-        opacity: 0.85;
-        pointer-events: none;
-      }
+    body.dark-mode {
+      background: linear-gradient(135deg, #0a0e0c 0%, #1a2e21 40%, #2a4a35 75%, #3d6b4a 100%);
+      color: var(--text-light);
+    }
 
-      body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image: radial-gradient(
-          rgba(255, 255, 255, 0.28) 1px,
-          transparent 1px
-        );
-        background-size: 18px 18px;
-        mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
-        opacity: 0.16;
-        pointer-events: none;
-      }
+    /* Navbar */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
 
-      .content-shell {
-        position: relative;
-        z-index: 1;
-        max-width: 1100px;
-        margin: 24px auto;
-        padding: 28px 24px 60px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.75);
-        border-radius: 24px;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
-      }
+    body.dark-mode nav {
+      background: rgba(26, 26, 26, 0.95);
+    }
 
-      img {
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-      }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
 
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      color: var(--secondary-color);
+      transform: scale(1.05);
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    body.dark-mode .nav-links a {
+      color: var(--text-light);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .search-box {
+      background: var(--light-bg);
+      border: 1px solid #ddd;
+      padding: 8px 16px;
+      border-radius: 24px;
+      width: 200px;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .search-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #444;
+      color: var(--text-light);
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(15, 95, 45, 0.1);
+    }
+
+    .theme-toggle, .favorites-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: var(--transition);
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .theme-toggle:hover, .favorites-btn:hover {
+      background: var(--light-bg);
+      transform: rotate(20deg);
+    }
+
+    body.dark-mode .theme-toggle:hover, 
+    body.dark-mode .favorites-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main Content */
+    .content-shell {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 40px 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    body.dark-mode .content-shell {
+      background: rgba(30, 30, 30, 0.9);
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: slideInDown 0.6s ease-out;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 24px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .hero-title {
+      color: #7fd587;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto 32px;
+    }
+
+    body.dark-mode .hero-subtitle {
+      color: #ccc;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      animation: slideInUp 0.6s ease-out;
+    }
+
+    /* Filters & Controls */
+    .controls {
+      display: flex;
+      gap: 16px;
+      margin: 32px 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 95, 45, 0.3);
+    }
+
+    /* Manga Container */
+    .manga-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 32px;
+      list-style: none;
+      margin: 32px 0;
+      animation: fadeIn 0.6s ease-out 0.2s both;
+    }
+
+    @media (max-width: 768px) {
       .manga-container {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-        padding: 0;
-        gap: 50px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    /* Manga Item */
+    .manga-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+      animation: slideUp 0.5s ease-out backwards;
+    }
+
+    .manga-item:nth-child(1) { animation-delay: 0.1s; }
+    .manga-item:nth-child(2) { animation-delay: 0.2s; }
+    .manga-item:nth-child(3) { animation-delay: 0.3s; }
+    .manga-item:nth-child(4) { animation-delay: 0.4s; }
+    .manga-item:nth-child(5) { animation-delay: 0.5s; }
+    .manga-item:nth-child(6) { animation-delay: 0.6s; }
+
+    .manga-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .manga-image-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 133%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    }
+
+    .manga-image-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .manga-item:hover .manga-image-wrapper img {
+      transform: scale(1.08) rotate(2deg);
+    }
+
+    .manga-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .manga-item:hover .manga-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .overlay-icons {
+      display: flex;
+      gap: 16px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .manga-item:hover .overlay-icons {
+      opacity: 1;
+    }
+
+    .icon-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn:hover {
+      background: var(--secondary-color);
+      transform: scale(1.1);
+    }
+
+    .icon-btn.favorited {
+      background: var(--accent-color);
+    }
+
+    .manga-info {
+      padding: 16px;
+      background: var(--card-bg);
+      transition: var(--transition);
+    }
+
+    body.dark-mode .manga-info {
+      background: rgba(40, 40, 40, 0.95);
+    }
+
+    .manga-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+      text-decoration: none;
+      display: block;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .manga-title {
+      color: var(--text-light);
+    }
+
+    .manga-item:hover .manga-title {
+      color: var(--primary-color);
+    }
+
+    .manga-rating {
+      font-size: 14px;
+      color: #ff9800;
+      margin-bottom: 8px;
+    }
+
+    .manga-status {
+      font-size: 12px;
+      color: #666;
+      background: var(--light-bg);
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    body.dark-mode .manga-status {
+      color: #aaa;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      margin-top: 60px;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(15, 95, 45, 0.1), rgba(45, 124, 71, 0.1));
+      border-radius: 16px;
+      border: 1px solid rgba(15, 95, 45, 0.2);
+    }
+
+    body.dark-mode .contact-section {
+      background: linear-gradient(135deg, rgba(127, 213, 135, 0.1), rgba(61, 107, 74, 0.1));
+      border-color: rgba(127, 213, 135, 0.2);
+    }
+
+    .contact-section h2 {
+      color: var(--primary-color);
+      margin-bottom: 24px;
+      font-size: 28px;
+    }
+
+    body.dark-mode .contact-section h2 {
+      color: #7fd587;
+    }
+
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    body.dark-mode .contact-card {
+      background: rgba(40, 40, 40, 0.8);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-card h3 {
+      color: var(--primary-color);
+      margin-bottom: 12px;
+    }
+
+    body.dark-mode .contact-card h3 {
+      color: #7fd587;
+    }
+
+    .contact-card p {
+      margin-bottom: 12px;
+      color: #666;
+    }
+
+    body.dark-mode .contact-card p {
+      color: #aaa;
+    }
+
+    .contact-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .contact-card a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      text-align: center;
+      padding: 24px;
+      margin-top: 60px;
+      border-top: 2px solid var(--primary-color);
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .pulse {
+      animation: pulse 0.5s ease-in-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-center {
+        gap: 16px;
       }
 
-      .manga-item {
-        width: 200px;
-        text-align: center;
+      .nav-links {
+        display: none;
       }
 
-      .manga-item img {
-        width: 250px;
-        height: 250px;
-        display: block;
-        margin-bottom: 10px;
-        border-radius: 12px;
-        object-fit: cover;
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
-        border: 2px solid rgba(255, 255, 255, 0.7);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+      .search-box {
+        width: 150px;
       }
 
-      .manga-item img:hover {
-        transform: translateY(-2px) scale(1.01);
-        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+      .hero-title {
+        font-size: 28px;
       }
 
-      a {
-        color: #0b5d2f;
-        text-decoration: none;
+      .hero-subtitle {
+        font-size: 14px;
       }
 
-      h1,
-      h2,
-      h3,
-      p {
-        line-height: 1.5;
+      .controls {
+        justify-content: center;
       }
-    </style>
-  </head>
-  <body>
-    <div class="content-shell">
-      <h1 style="color: #0f5f2d; text-align: center; margin-top: 0">
-        WELCOME TO
-      </h1>
-      <img src="/Manga Green.jpg" height="400px" width="900px" />
-      <h3 style="color: #1d1d1d">
-        <em style="color: #c62828; font-weight: bolder">MangaGreen</em>
-        is a modern manga reading platform built for fans who want smooth
-        access, clean design, and a distraction-free experience. It’s a space
-        where stories come first — from action-packed battles to emotional
-        journeys and everything in between. Designed with simplicity and speed
-        in mind, MangaGreen makes it easy to discover new series, catch up on
-        your favorites, and dive deep into different worlds without unnecessary
-        clutter getting in the way. Whether you’re a long-time manga reader or
-        just getting started, MangaGreen is built to feel like home: green,
-        fresh, and always growing with new stories. 🌱📚
-      </h3>
-      <h2 style="color: #c62828">MANGAS</h2>
-      <ul class="manga-container">
-        <li class="manga-item">
-          <a href="company/2BlueVortex.html"
-            ><img src="company/BorutoOffpic12345678.jpg" alt="" />
-            <h3>Boruto: Two Blue Vortex</h3></a
-          >
-        </li>
-        <li class="manga-item">
-          <a href="company/JJK.html"
-            ><img src="company/JJKoffpic.jpg" alt="" />
-            <h3>Jujutsu Kaisen MODULO</h3></a
-          >
-        </li>
-      </ul>
-      <h3 style="color: #0d5aa7">CONTACT US</h3>
-      <p style="color: #2d6a36">
-        -If you have any enquiries, any advices, or manga that you know that you
-        want to be on this website, you can email the creators using the link
-        below
-      </p>
-      <a style="color: #0d5aa7" href="mailto:afamorunewe@gmail.com"
-        >Email Afam</a
-      >
-      <p style="color: #2d6a36">
-        -If you probably don't have an email account or you don't want to email
-        me, use these
-      </p>
-      <ul style="color: #2d6a36">
-        <li><a href="tel:+2349033896266">0903 389 6266[WhatsApp]</a></li>
-      </ul>
-      <p style="color: #c62828; font-weight: bold; font-style: italic">
-        !NOTICE! THIS WEBSITE IS STILL BEING BUILT, SO YOU MIGHT HAVE TO RELOAD
-        A NUMBER OF TIMES. IF YOU HAVE ADVICES THAT I CAN USE TO BETTER THE
-        WEBSITE, USE THE EMAIL OR NUMBER ABOVE.
-      </p>
+    }
+
+    /* Modal for Favorites */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideInUp 0.3s ease-out;
+    }
+
+    body.dark-mode .modal-content {
+      background: #2a2a2a;
+      color: var(--text-light);
+    }
+
+    .close-modal {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--accent-color);
+    }
+
+    .notice {
+      background: rgba(198, 40, 40, 0.1);
+      border-left: 4px solid var(--accent-color);
+      padding: 16px;
+      margin: 24px 0;
+      border-radius: 4px;
+      color: var(--accent-color);
+    }
+
+    body.dark-mode .notice {
+      background: rgba(198, 40, 40, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">🌱 MangaGreen</a>
+      <div class="nav-center">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#mangas">Mangas</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <input type="text" class="search-box" id="searchBox" placeholder="Search manga...">
+      </div>
+      <div class="nav-right">
+        <button class="favorites-btn" id="favoritesBtn" title="View Favorites">❤️ <span id="favCount">0</span></button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+      </div>
     </div>
-  </body>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="content-shell">
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <h1 class="hero-title">Welcome to MangaGreen</h1>
+      <p class="hero-subtitle">
+        <strong style="color: var(--accent-color);">MangaGreen</strong> is a modern manga reading platform built for fans who want smooth access, clean design, and a distraction-free experience. It's a space where stories come first — from action-packed battles to emotional journeys and everything in between. Designed with simplicity and speed in mind, MangaGreen makes it easy to discover new series, catch up on your favorites, and dive deep into different worlds without unnecessary clutter. Whether you're a long-time manga reader or just getting started, MangaGreen is built to feel like home. 🌱📚
+      </p>
+      <img src="Manga%20Green.jpg" alt="MangaGreen Banner" class="hero-image">
+    </section>
+
+    <!-- Filters -->
+    <div class="controls" id="mangas">
+      <button class="filter-btn active" onclick="filterMangas('all')">All</button>
+      <button class="filter-btn" onclick="filterMangas('ongoing')">Ongoing</button>
+      <button class="filter-btn" onclick="filterMangas('completed')">Completed</button>
+    </div>
+
+    <!-- Manga Grid -->
+    <ul class="manga-container" id="mangaGrid">
+      <!-- Dynamically filled by JavaScript -->
+    </ul>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <h2>📧 Get in Touch</h2>
+      <p>Have questions, suggestions, or want to see a manga featured on MangaGreen? We'd love to hear from you!</p>
+      
+      <div class="contact-methods">
+        <div class="contact-card">
+          <h3>📮 Email</h3>
+          <p>Send us your queries or suggestions</p>
+          <a href="mailto:afamorunewe@gmail.com">afamorunewe@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h3>💬 WhatsApp</h3>
+          <p>Chat with us on WhatsApp</p>
+          <a href="tel:+2349033896266">+234 903 389 6266</a>
+        </div>
+      </div>
+
+      <div class="notice">
+        ⚠️ <strong>Notice:</strong> This website is actively being built! We're constantly adding new features and manga. Your feedback helps us improve. Thanks for being part of the journey!
+      </div>
+    </section>
+  </div>
+
+  <!-- Favorites Modal -->
+  <div class="modal" id="favoritesModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeFavorites()">&times;</span>
+      <h2>❤️ Your Favorites</h2>
+      <ul id="favoritesList" style="list-style: none; padding: 0;">
+        <p style="color: #999; text-align: center;">No favorites yet. Start adding your favorites!</p>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 MangaGreen. Built with ❤️ for manga fans. | Stay fresh, stay green 🌱</p>
+  </footer>
+
+  <script>
+    // Manga Database
+    const mangas = [
+      {
+        id: 1,
+        title: "Boruto: Two Blue Vortex",
+        status: "ongoing",
+        image: "company/BorutoOffpic12345678.jpg",
+        link: "company/2BlueVortex.html",
+        rating: 4.5
+      },
+      {
+        id: 2,
+        title: "Jujutsu Kaisen",
+        status: "ongoing",
+        image: "company/JJKoffpic.jpg",
+        link: "company/JJK.html",
+        rating: 4.8
+      }
+    ];
+
+    let currentFilter = 'all';
+    let favorites = JSON.parse(localStorage.getItem('mangaFavorites')) || [];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderManga();
+      updateFavCount();
+      loadTheme();
+    });
+
+    // Render Manga
+    function renderManga() {
+      const mangaGrid = document.getElementById('mangaGrid');
+      mangaGrid.innerHTML = '';
+
+      const filtered = currentFilter === 'all' 
+        ? mangas 
+        : mangas.filter(m => m.status === currentFilter);
+
+      filtered.forEach(manga => {
+        const isFavorited = favorites.includes(manga.id);
+        const li = document.createElement('li');
+        li.className = 'manga-item';
+        li.innerHTML = `
+          <div class="manga-image-wrapper">
+            <img src="${manga.image}" alt="${manga.title}">
+            <div class="manga-overlay">
+              <div class="overlay-icons">
+                <button class="icon-btn" onclick="toggleFavorite(${manga.id})" title="Add to Favorites">
+                  ${isFavorited ? '❤️' : '🤍'}
+                </button>
+                <a href="${manga.link}" class="icon-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                  👁️
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="manga-info">
+            <a href="${manga.link}" class="manga-title">${manga.title}</a>
+            <div class="manga-rating">⭐ ${manga.rating}/5</div>
+            <span class="manga-status">${manga.status.toUpperCase()}</span>
+          </div>
+        `;
+        mangaGrid.appendChild(li);
+      });
+    }
+
+    // Filter Mangas
+    function filterMangas(filter) {
+      currentFilter = filter;
+      
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      renderManga();
+    }
+
+    // Toggle Favorite
+    function toggleFavorite(mangaId) {
+      const index = favorites.indexOf(mangaId);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(mangaId);
+      }
+      
+      localStorage.setItem('mangaFavorites', JSON.stringify(favorites));
+      event.target.parentElement.classList.add('pulse');
+      updateFavCount();
+      renderManga();
+    }
+
+    // Update Favorite Count
+    function updateFavCount() {
+      document.getElementById('favCount').textContent = favorites.length;
+    }
+
+    // Show Favorites Modal
+    document.getElementById('favoritesBtn').addEventListener('click', () => {
+      const modal = document.getElementById('favoritesModal');
+      const list = document.getElementById('favoritesList');
+      
+      if (favorites.length === 0) {
+        list.innerHTML = '<p style="color: #999; text-align: center;">No favorites yet. Start adding your favorites!</p>';
+      } else {
+        list.innerHTML = favorites.map(fId => {
+          const manga = mangas.find(m => m.id === fId);
+          return `
+            <li style="padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+              <a href="${manga.link}" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+                ${manga.title}
+              </a>
+              <button onclick="toggleFavorite(${manga.id}); updateFavCount(); renderManga();" style="background: none; border: none; cursor: pointer; font-size: 18px;">
+                ❤️
+              </button>
+            </li>
+          `;
+        }).join('');
+      }
+      
+      modal.classList.add('active');
+    });
+
+    // Close Favorites Modal
+    function closeFavorites() {
+      document.getElementById('favoritesModal').classList.remove('active');
+    }
+
+    // Search Functionality
+    document.getElementById('searchBox').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = mangas.filter(m => 
+        m.title.toLowerCase().includes(query)
+      );
+      
+      const mangaGrid = document.getElementById('mangaGrid');
+      mangaGrid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        mangaGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No mangas found. Try a different search.</p>';
+        return;
+      }
+
+      filtered.forEach(manga => {
+        const isFavorited = favorites.includes(manga.id);
+        const li = document.createElement('li');
+        li.className = 'manga-item';
+        li.innerHTML = `
+          <div class="manga-image-wrapper">
+            <img src="${manga.image}" alt="${manga.title}">
+            <div class="manga-overlay">
+              <div class="overlay-icons">
+                <button class="icon-btn" onclick="toggleFavorite(${manga.id})" title="Add to Favorites">
+                  ${isFavorited ? '❤️' : '🤍'}
+                </button>
+                <a href="${manga.link}" class="icon-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+                  👁️
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="manga-info">
+            <a href="${manga.link}" class="manga-title">${manga.title}</a>
+            <div class="manga-rating">⭐ ${manga.rating}/5</div>
+            <span class="manga-status">${manga.status.toUpperCase()}</span>
+          </div>
+        `;
+        mangaGrid.appendChild(li);
+      });
+    });
+
+    // Dark Mode Toggle
+    function loadTheme() {
+      const theme = localStorage.getItem('theme') || 'light';
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggle').textContent = '☀️';
+      }
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+      localStorage.setItem('theme', theme);
+      document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('favoritesModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('favoritesModal')) {
+        closeFavorites();
+      }
+    });
+  </script>
+
+</body>
 </html>
