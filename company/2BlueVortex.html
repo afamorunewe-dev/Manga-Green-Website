@@ -4,73 +4,138 @@
     <title>Boruto: Two Blue Vortex</title>
     <link rel="icon" type="image/x-icon" href="/FaviCon2.png" />
     <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #1d1d1d;
         background-image: url(/company/Boruto\ 2BV\ Home\ Background.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
       }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(0, 0, 0, 0.02)
+        );
+        pointer-events: none;
+      }
+
+      .content-shell {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+        margin: 24px auto;
+        padding: 24px 28px 36px;
+        background: rgba(255, 255, 255, 0.58);
+        backdrop-filter: blur(1px);
+        border-radius: 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      li {
+        line-height: 1.5;
+      }
+
+      a {
+        color: #0b5d2f;
+        text-decoration: none;
+      }
+
+      .home-link {
+        display: inline-block;
+        margin-top: 12px;
+        color: #c62828;
+        font-weight: bold;
+      }
+
     </style>
   </head>
   <body>
-    <center>
-      <img src="/2BVChapPics/Main Cover.png" alt="Main Cover" width="600px" />
-    </center>
-    <h4>
-      Boruto: Two Blue Vortex is the sequel to the Boruto series, following the
-      adventures of Boruto Uzumaki and his friends as they face new challenges
-      and threats in the ninja world. After Eida changes the minds of the
-      villagers, making them think Boruto killed Naruto, Sarada, who was
-      unaffected by the jutsu, makes Sasuke realize that Boruto didn't kill
-      Naruto, after she unlocks her Mangekyou Sharingan right in front of him,
-      making him gain the trust of Boruto. How will Boruto regain the trust of
-      the Hidden Leaf, and make everyone know that it was Kawaki who trapped
-      Naruto and Hinata in another dimension <em>(Daikokuten)</em>, and more
-      importantly, handle the new threats of Code's Thorn Bulb creations, mainly
-      the threats of Jura? New battles await in the ninja world.
-    </h4>
-    <h2>Characters</h2>
-    <ul>
-      <li>Boruto Uzumaki</li>
-      <li>Kawaki Ohtsutsuki</li>
-      <li>Sasuke Uchiha</li>
-      <li>Eida</li>
-      <li>Daemon</li>
-      <li>Sarada Uchiha</li>
-      <li>Mitsuki</li>
-      <li>Shikamaru Nara</li>
-      <li>Himawari Uzumaki</li>
-      <li>Naruto Uzumaki</li>
-      <li>Amado</li>
-      <li>Kakei Sumire</li>
-      <li>Code</li>
-      <li>Shikadai Nara</li>
-      <li>Momoshiki Ohtsutsuki</li>
-      <li>Shibai Ohtsutsuki</li>
-    </ul>
-    <p>And so much more to discover</p>
-    <h2>CHAPTERS</h2>
-    <ul>
-      <li><a href="2BlueVrtx/Chap1.html">Chapter 1</a></li>
-      <li><a href="2BlueVrtx/Chap2.html">Chapter 2</a></li>
-      <li><a href="2BlueVrtx/Chap3.html">Chapter 3</a></li>
-      <li><a href="2BlueVrtx/Chap4.html">Chapter 4</a></li>
-      <li><a href="2BlueVrtx/Chap5.html">Chapter 5</a></li>
-    </ul>
-    <h4>
-      For reference, the animes you can watch right now(as of 2026)are
-      <ol>
-        <li>Boruto: Naruto Next Generations</li>
-      </ol>
-      <p>
-        Note, Boruto: Two Blue Vortex is still in development and not yet
-        available for streaming. Boruto: Naruto Next Generations is the only
-        anime available for now and doesn't cover Boruto: Two Blue Vortex.
-      </p>
-    </h4>
-    <h3>
-      <a href="/index.html"
-        ><center><h2 style="color: red">HOME</h2></center></a
-      >
-    </h3>
+    <div class="content-shell">
+      <center>
+        <img src="/2BVChapPics/Main Cover.png" alt="Main Cover" width="600px" />
+      </center>
+      <h4>
+        Boruto: Two Blue Vortex is the sequel to the Boruto series, following
+        the adventures of Boruto Uzumaki and his friends as they face new
+        challenges and threats in the ninja world. After Eida changes the minds
+        of the villagers, making them think Boruto killed Naruto, Sarada, who
+        was unaffected by the jutsu, makes Sasuke realize that Boruto didn't
+        kill Naruto, after she unlocks her Mangekyou Sharingan right in front of
+        him, making him gain the trust of Boruto. How will Boruto regain the
+        trust of the Hidden Leaf, and make everyone know that it was Kawaki who
+        trapped Naruto and Hinata in another dimension <em>(Daikokuten)</em>,
+        and more importantly, handle the new threats of Code's Thorn Bulb
+        creations, mainly the threats of Jura? New battles await in the ninja
+        world.
+      </h4>
+      <h2>Characters</h2>
+      <ul>
+        <li>Boruto Uzumaki</li>
+        <li>Kawaki Ohtsutsuki</li>
+        <li>Sasuke Uchiha</li>
+        <li>Eida</li>
+        <li>Daemon</li>
+        <li>Sarada Uchiha</li>
+        <li>Mitsuki</li>
+        <li>Shikamaru Nara</li>
+        <li>Himawari Uzumaki</li>
+        <li>Naruto Uzumaki</li>
+        <li>Amado</li>
+        <li>Kakei Sumire</li>
+        <li>Code</li>
+        <li>Shikadai Nara</li>
+        <li>Momoshiki Ohtsutsuki</li>
+        <li>Shibai Ohtsutsuki</li>
+      </ul>
+      <p>And so much more to discover</p>
+      <h2>CHAPTERS</h2>
+      <ul>
+        <li><a href="2BlueVrtx/Chap1.html">Chapter 1</a></li>
+        <li><a href="2BlueVrtx/Chap2.html">Chapter 2</a></li>
+        <li><a href="2BlueVrtx/Chap3.html">Chapter 3</a></li>
+        <li><a href="2BlueVrtx/Chap4.html">Chapter 4</a></li>
+        <li><a href="2BlueVrtx/Chap5.html">Chapter 5</a></li>
+      </ul>
+      <h4>
+        For reference, the animes you can watch right now(as of 2026)are
+        <ol>
+          <li>Boruto: Naruto Next Generations</li>
+        </ol>
+        <p>
+          Note, Boruto: Two Blue Vortex is still in development and not yet
+          available for streaming. Boruto: Naruto Next Generations is the only
+          anime available for now and doesn't cover Boruto: Two Blue Vortex.
+        </p>
+      </h4>
+      <h3>
+        <a class="home-link" href="/index.html">HOME</a>
+      </h3>
+    </div>
   </body>
 </html>

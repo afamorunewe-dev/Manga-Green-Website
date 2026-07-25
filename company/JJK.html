@@ -4,78 +4,133 @@
     <title>Jujutsu Kaisen</title>
     <link rel="icon" type="image/x-icon" href="/Manga Green Favicon.png" />
     <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #1d1d1d;
         background-image: url(/company/JJK\ Home\ Background.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(0, 0, 0, 0.02)
+        );
+        pointer-events: none;
+      }
+
+      .content-shell {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 24px 28px 36px;
+        background: rgba(255, 255, 255, 0.58);
+        backdrop-filter: blur(1px);
+        border-radius: 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      li {
+        line-height: 1.5;
+      }
+
+      a {
+        color: #0b5d2f;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
-    <h1 style="color: red"><center>JUJUTSU KAISEN MODULO</center></h1>
-    <h4 style="color: white">
-      In a future where the boundary between human civilization and the
-      supernatural has fractured, traditional Jujutsu fails against threats
-      descending from beyond the stars. A new generation of sorcerers must
-      master Jujutsu—the volatile cursed energy left behind by the legends of
-      the past. Jujutsu Kaisen Modulo follows Yuka and Tsurugi Okkotsu,
-      descendants of the strongest bloodlines, who are thrust into a celestial
-      conflict after unsealing a relic that connects them to a forgotten era. In
-      a world of Neo-Tokyo neon and cosmic horror, they must navigate a
-      landscape where Cursed Techniques have evolved into planetary threats.
-      Expect reality-bending expansions, a ruthless new hierarchy of power, and
-      a narrative that questions the very cost of humanity. This is a journey
-      where the past is a weapon, the future is a curse, and the math of
-      survival always ends in blood.
-    </h4>
-    <h2 style="color: gold">CHARACTERS</h2>
-    <ul style="color: white">
-      <h4 style="color: blue">MAIN PROTAGONISTS</h4>
-      <li>Yuka Okkotsu</li>
-      <li>Tsurugi Okkotsu</li>
-      <li>Usami</li>
-      <h4 style="color: red">The Simurians & Curses</h4>
-      <li style="font-size: larger">
-        <em style="color: gold">Dabura</em>
-        <em style="color: grey">Kabura</em>
-        <em>[The Simurian's Powerhouse]</em>
-      </li>
-      <li style="font-size: large; color: aquamarine">
-        <em>Mahoraga[The Divine General]</em>
-      </li>
-      <li>Marulu Val Vol Yelvori[Maru]</li>
-      <li>Jabaloma</li>
-      <li>Cross Val Vol Yelvori</li>
-      <li>The Simurian Leader</li>
-      <li>Dura</li>
-      <h4 style="color: aqua">THE LEGACIES</h4>
-      <li style="color: red; font-size: larger">
-        <em>Yuji Itadori[The Strongest of Tomorrow]</em>
-      </li>
-      <li>Yuta Okkotsu</li>
-      <li>Maki Zen'in</li>
-      <li>Nobara Kugisaki</li>
-      <li>Ui Ui</li>
-      <li>Mahito</li>
-    </ul>
-    <h4 style="color: aqua">OTHERS</h4>
-    <li>Masayoshi</li>
-    <li>Nkamura</li>
-    <li>Masaki Takeda</li>
-    <h2 style="color: gold">CHAPTERS</h2>
-    <ul style="color: red">
-      <li><a href="JJK/Chap1.html">Chapter 1</a></li>
-    </ul>
-    <h4 style="color: gold">
-      For reference, the animes you can watch right now(as of 2026 even though
-      the anime isn't out yet) in order are
-      <ol>
-        <li>Jujutsu Kaisen Season 1</li>
-        <li>Jujutsu Kaisen 0</li>
-        <li>Jujutsu Kaisen Season 2</li>
-        <li>Jujutsu Kaisen: The Culling Game: Part 1[Season 3]</li>
-      </ol>
-    </h4>
-    <a href="/index.html">Manga Green</a>
+    <div class="content-shell">
+      <h1 style="color: #b71c1c; text-align: center; margin-top: 0;">
+        JUJUTSU KAISEN MODULO
+      </h1>
+      <h4 style="color: #1d1d1d;">
+        In a future where the boundary between human civilization and the
+        supernatural has fractured, traditional Jujutsu fails against threats
+        descending from beyond the stars. A new generation of sorcerers must
+        master Jujutsu—the volatile cursed energy left behind by the legends of
+        the past. Jujutsu Kaisen Modulo follows Yuka and Tsurugi Okkotsu,
+        descendants of the strongest bloodlines, who are thrust into a celestial
+        conflict after unsealing a relic that connects them to a forgotten era. In
+        a world of Neo-Tokyo neon and cosmic horror, they must navigate a
+        landscape where Cursed Techniques have evolved into planetary threats.
+        Expect reality-bending expansions, a ruthless new hierarchy of power, and
+        a narrative that questions the very cost of humanity. This is a journey
+        where the past is a weapon, the future is a curse, and the math of
+        survival always ends in blood.
+      </h4>
+      <h2 style="color: #b8860b;">CHARACTERS</h2>
+      <ul style="color: #1d1d1d;">
+        <h4 style="color: #1565c0; margin-bottom: 6px;">MAIN PROTAGONISTS</h4>
+        <li>Yuka Okkotsu</li>
+        <li>Tsurugi Okkotsu</li>
+        <li>Usami</li>
+        <h4 style="color: #c62828; margin-bottom: 6px;">The Simurians & Curses</h4>
+        <li style="font-size: larger;">
+          <em style="color: #b8860b;">Dabura</em>
+          <em style="color: #616161;">Kabura</em>
+          <em>[The Simurian's Powerhouse]</em>
+        </li>
+        <li style="font-size: large; color: #2e8b57;">
+          <em>Mahoraga[The Divine General]</em>
+        </li>
+        <li>Marulu Val Vol Yelvori[Maru]</li>
+        <li>Jabaloma</li>
+        <li>Cross Val Vol Yelvori</li>
+        <li>The Simurian Leader</li>
+        <li>Dura</li>
+        <h4 style="color: #00acc1; margin-bottom: 6px;">THE LEGACIES</h4>
+        <li style="color: #c62828; font-size: larger;">
+          <em>Yuji Itadori[The Strongest of Tomorrow]</em>
+        </li>
+        <li>Yuta Okkotsu</li>
+        <li>Maki Zen'in</li>
+        <li>Nobara Kugisaki</li>
+        <li>Ui Ui</li>
+        <li>Mahito</li>
+      </ul>
+      <h4 style="color: #00acc1;">OTHERS</h4>
+      <li>Masayoshi</li>
+      <li>Nkamura</li>
+      <li>Masaki Takeda</li>
+      <h2 style="color: #b8860b;">CHAPTERS</h2>
+      <ul style="color: #c62828;">
+        <li><a href="JJK/Chap1.html">Chapter 1</a></li>
+      </ul>
+      <h4 style="color: #b8860b;">
+        For reference, the animes you can watch right now(as of 2026 even though
+        the anime isn't out yet) in order are
+        <ol>
+          <li>Jujutsu Kaisen Season 1</li>
+          <li>Jujutsu Kaisen 0</li>
+          <li>Jujutsu Kaisen Season 2</li>
+          <li>Jujutsu Kaisen: The Culling Game: Part 1[Season 3]</li>
+        </ol>
+      </h4>
+      <a href="/index.html">Manga Green</a>
+    </div>
   </body>
 </html>

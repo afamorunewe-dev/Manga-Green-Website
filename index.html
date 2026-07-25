@@ -4,16 +4,104 @@
     <title>Manga Green</title>
     <link rel="icon" type="image/x-icon" href="/FaviCon2.png" />
     <style>
-      body {
-        background-image: url(/White.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
+      :root {
+        color-scheme: light;
       }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #12321f;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 255, 255, 0.16),
+            transparent 24%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(255, 214, 102, 0.14),
+            transparent 22%
+          ),
+          linear-gradient(
+            135deg,
+            #071d15 0%,
+            #14452c 40%,
+            #2d7c47 75%,
+            #8fdb75 100%
+          );
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.3),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(255, 255, 255, 0.16),
+            transparent 28%
+          ),
+          linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0.12) 0 25%,
+            transparent 25% 50%,
+            rgba(255, 255, 255, 0.12) 50% 75%,
+            transparent 75% 100%
+          );
+        background-size:
+          auto,
+          auto,
+          26px 26px;
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.28) 1px,
+          transparent 1px
+        );
+        background-size: 18px 18px;
+        mask-image: linear-gradient(to bottom, black 0%, transparent 90%);
+        opacity: 0.16;
+        pointer-events: none;
+      }
+
+      .content-shell {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 28px 24px 60px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        border-radius: 24px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+      }
+
       img {
         margin-left: auto;
         margin-right: auto;
         display: block;
       }
+
       .manga-container {
         display: flex;
         flex-wrap: wrap;
@@ -21,68 +109,98 @@
         padding: 0;
         gap: 50px;
       }
+
       .manga-item {
         width: 200px;
         text-align: center;
       }
+
       .manga-item img {
         width: 250px;
         height: 250px;
         display: block;
         margin-bottom: 10px;
-        border-radius: 8px;
+        border-radius: 12px;
         object-fit: cover;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .manga-item img:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+      }
+
+      a {
+        color: #0b5d2f;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        line-height: 1.5;
       }
     </style>
   </head>
   <body>
-    <h1 style="color: gold"><center>WELCOME TO</center></h1>
-    <img src="/Manga Green.jpg" height="400px" width="900px" />
-    <h3 style="color: black">
-      <em style="color: red; font-weight: bolder">MangaGreen</em>
-      is a modern manga reading platform built for fans who want smooth access,
-      clean design, and a distraction-free experience. It’s a space where
-      stories come first — from action-packed battles to emotional journeys and
-      everything in between. Designed with simplicity and speed in mind,
-      MangaGreen makes it easy to discover new series, catch up on your
-      favorites, and dive deep into different worlds without unnecessary clutter
-      getting in the way. Whether you’re a long-time manga reader or just
-      getting started, MangaGreen is built to feel like home: green, fresh, and
-      always growing with new stories. 🌱📚
-    </h3>
-    <h2 style="color: red">MANGAS</h2>
-    <ul class="manga-container">
-      <li class="manga-item">
-        <a href="company/2BlueVortex.html"
-          ><img src="company/BorutoOffpic12345678.jpg" alt="" />
-          <h3>Boruto: Two Blue Vortex</h3></a
-        >
-      </li>
-      <li class="manga-item">
-        <a href="company/JJK.html"
-          ><img src="company/JJKoffpic.jpg" alt="" />
-          <h3>Jujutsu Kaisen MODULO</h3></a
-        >
-      </li>
-    </ul>
-    <h3 style="color: blue">CONTACT US</h3>
-    <p style="color: green">
-      -If you have any enquiries, any advices, or manga that you know that you
-      want to be on this website, you can email the creators using the link
-      below
-    </p>
-    <a style="color: blue" href="mailto:afamorunewe@gmail.com">Email Afam</a>
-    <p style="color: green">
-      -If you probably don't have an email account or you don't want to email
-      me, use these
-    </p>
-    <ul style="color: green">
-      <li><a href="tel:+2349033896266">0903 389 6266[WhatsApp]</a></li>
-    </ul>
-    <p style="color: red; font-weight: bold; font-style: italic">
-      !NOTICE! THIS WEBSITE IS STILL BEING BUILT, SO YOU MIGHT HAVE TO RELOAD A
-      NUMBER OF TIMES. IF YOU HAVE ADVICES THAT I CAN USE TO BETTER THE WEBSITE,
-      USE THE EMAIL OR NUMBER ABOVE.
-    </p>
+    <div class="content-shell">
+      <h1 style="color: #0f5f2d; text-align: center; margin-top: 0">
+        WELCOME TO
+      </h1>
+      <img src="/Manga Green.jpg" height="400px" width="900px" />
+      <h3 style="color: #1d1d1d">
+        <em style="color: #c62828; font-weight: bolder">MangaGreen</em>
+        is a modern manga reading platform built for fans who want smooth
+        access, clean design, and a distraction-free experience. It’s a space
+        where stories come first — from action-packed battles to emotional
+        journeys and everything in between. Designed with simplicity and speed
+        in mind, MangaGreen makes it easy to discover new series, catch up on
+        your favorites, and dive deep into different worlds without unnecessary
+        clutter getting in the way. Whether you’re a long-time manga reader or
+        just getting started, MangaGreen is built to feel like home: green,
+        fresh, and always growing with new stories. 🌱📚
+      </h3>
+      <h2 style="color: #c62828">MANGAS</h2>
+      <ul class="manga-container">
+        <li class="manga-item">
+          <a href="company/2BlueVortex.html"
+            ><img src="company/BorutoOffpic12345678.jpg" alt="" />
+            <h3>Boruto: Two Blue Vortex</h3></a
+          >
+        </li>
+        <li class="manga-item">
+          <a href="company/JJK.html"
+            ><img src="company/JJKoffpic.jpg" alt="" />
+            <h3>Jujutsu Kaisen MODULO</h3></a
+          >
+        </li>
+      </ul>
+      <h3 style="color: #0d5aa7">CONTACT US</h3>
+      <p style="color: #2d6a36">
+        -If you have any enquiries, any advices, or manga that you know that you
+        want to be on this website, you can email the creators using the link
+        below
+      </p>
+      <a style="color: #0d5aa7" href="mailto:afamorunewe@gmail.com"
+        >Email Afam</a
+      >
+      <p style="color: #2d6a36">
+        -If you probably don't have an email account or you don't want to email
+        me, use these
+      </p>
+      <ul style="color: #2d6a36">
+        <li><a href="tel:+2349033896266">0903 389 6266[WhatsApp]</a></li>
+      </ul>
+      <p style="color: #c62828; font-weight: bold; font-style: italic">
+        !NOTICE! THIS WEBSITE IS STILL BEING BUILT, SO YOU MIGHT HAVE TO RELOAD
+        A NUMBER OF TIMES. IF YOU HAVE ADVICES THAT I CAN USE TO BETTER THE
+        WEBSITE, USE THE EMAIL OR NUMBER ABOVE.
+      </p>
+    </div>
   </body>
 </html>
