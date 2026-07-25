@@ -124,17 +124,22 @@
 
     .search-box {
       background: var(--light-bg);
-      border: 1px solid #ddd;
-      padding: 8px 16px;
+      border: 2px solid #ddd;
+      padding: 10px 16px;
       border-radius: 24px;
       width: 200px;
       transition: var(--transition);
+      font-size: 14px;
     }
 
     body.dark-mode .search-box {
       background: rgba(255, 255, 255, 0.1);
       border-color: #444;
       color: var(--text-light);
+    }
+
+    body.dark-mode .search-box::placeholder {
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .search-box:focus {
@@ -402,6 +407,19 @@
     body.dark-mode .manga-status {
       color: #aaa;
       background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* No Results Message */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      font-size: 16px;
+    }
+
+    body.dark-mode .no-results {
+      color: #666;
     }
 
     /* Contact Section */
@@ -740,6 +758,7 @@
     ];
 
     let currentFilter = 'all';
+    let currentSearch = '';
     let favorites = JSON.parse(localStorage.getItem('mangaFavorites')) || [];
 
     // Initialize
@@ -754,10 +773,27 @@
       const mangaGrid = document.getElementById('mangaGrid');
       mangaGrid.innerHTML = '';
 
-      const filtered = currentFilter === 'all' 
-        ? mangas 
-        : mangas.filter(m => m.status === currentFilter);
+      let filtered = mangas;
 
+      // Apply filter
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(m => m.status === currentFilter);
+      }
+
+      // Apply search
+      if (currentSearch.trim()) {
+        filtered = filtered.filter(m => 
+          m.title.toLowerCase().includes(currentSearch.toLowerCase())
+        );
+      }
+
+      // Handle empty results
+      if (filtered.length === 0) {
+        mangaGrid.innerHTML = '<div class="no-results">📭 No mangas found. Try a different search or filter!</div>';
+        return;
+      }
+
+      // Render manga items
       filtered.forEach(manga => {
         const isFavorited = favorites.includes(manga.id);
         const li = document.createElement('li');
@@ -789,6 +825,8 @@
     // Filter Mangas
     function filterMangas(filter) {
       currentFilter = filter;
+      currentSearch = ''; // Clear search when filtering
+      document.getElementById('searchBox').value = ''; // Clear search input
       
       // Update active button
       document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -809,7 +847,6 @@
       }
       
       localStorage.setItem('mangaFavorites', JSON.stringify(favorites));
-      event.target.parentElement.classList.add('pulse');
       updateFavCount();
       renderManga();
     }
@@ -850,47 +887,10 @@
       document.getElementById('favoritesModal').classList.remove('active');
     }
 
-    // Search Functionality
+    // Search Functionality (FIXED)
     document.getElementById('searchBox').addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
-      const filtered = mangas.filter(m => 
-        m.title.toLowerCase().includes(query)
-      );
-      
-      const mangaGrid = document.getElementById('mangaGrid');
-      mangaGrid.innerHTML = '';
-
-      if (filtered.length === 0) {
-        mangaGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No mangas found. Try a different search.</p>';
-        return;
-      }
-
-      filtered.forEach(manga => {
-        const isFavorited = favorites.includes(manga.id);
-        const li = document.createElement('li');
-        li.className = 'manga-item';
-        li.innerHTML = `
-          <div class="manga-image-wrapper">
-            <img src="${manga.image}" alt="${manga.title}">
-            <div class="manga-overlay">
-              <div class="overlay-icons">
-                <button class="icon-btn" onclick="toggleFavorite(${manga.id})" title="Add to Favorites">
-                  ${isFavorited ? '❤️' : '🤍'}
-                </button>
-                <a href="${manga.link}" class="icon-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                  👁️
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="manga-info">
-            <a href="${manga.link}" class="manga-title">${manga.title}</a>
-            <div class="manga-rating">⭐ ${manga.rating}/5</div>
-            <span class="manga-status">${manga.status.toUpperCase()}</span>
-          </div>
-        `;
-        mangaGrid.appendChild(li);
-      });
+      currentSearch = e.target.value;
+      renderManga();
     });
 
     // Dark Mode Toggle
