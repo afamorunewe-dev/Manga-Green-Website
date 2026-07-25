@@ -23,6 +23,8 @@
       --text-light: #f0f0f0;
       --shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --error-color: #c62828;
+      --success-color: #2e7d32;
     }
 
     body {
@@ -166,6 +168,56 @@
     body.dark-mode .theme-toggle:hover, 
     body.dark-mode .favorites-btn:hover {
       background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Auth Button */
+    .auth-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 14px;
+    }
+
+    .auth-btn:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 95, 45, 0.3);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 16px;
+      background: rgba(15, 95, 45, 0.1);
+      border-radius: 8px;
+      border: 1px solid var(--primary-color);
+    }
+
+    .user-profile span {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .logout-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .logout-btn:hover {
+      background: #a01a1a;
     }
 
     /* Main Content */
@@ -589,7 +641,7 @@
       }
     }
 
-    /* Modal for Favorites */
+    /* ===== LOGIN MODAL STYLES ===== */
     .modal {
       display: none;
       position: fixed;
@@ -610,12 +662,10 @@
 
     .modal-content {
       background: white;
-      padding: 32px;
+      padding: 40px;
       border-radius: 16px;
-      max-width: 600px;
+      max-width: 400px;
       width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: slideInUp 0.3s ease-out;
     }
@@ -632,10 +682,266 @@
       cursor: pointer;
       color: #aaa;
       transition: var(--transition);
+      line-height: 1;
     }
 
     .close-modal:hover {
       color: var(--accent-color);
+    }
+
+    .login-title {
+      clear: both;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    body.dark-mode .login-title {
+      color: #7fd587;
+    }
+
+    .login-subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 24px;
+    }
+
+    body.dark-mode .login-subtitle {
+      color: #aaa;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
+
+    body.dark-mode .form-group label {
+      color: var(--text-light);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: var(--transition);
+      background: white;
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .form-group input {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #444;
+      color: var(--text-light);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(15, 95, 45, 0.1);
+    }
+
+    .form-group input.error {
+      border-color: var(--error-color);
+      background-color: rgba(198, 40, 40, 0.05);
+    }
+
+    body.dark-mode .form-group input.error {
+      background-color: rgba(198, 40, 40, 0.15);
+    }
+
+    .error-message {
+      color: var(--error-color);
+      font-size: 12px;
+      margin-top: 6px;
+      display: none;
+      animation: slideInDown 0.2s ease-out;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 16px;
+    }
+
+    .login-btn:hover:not(:disabled) {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 95, 45, 0.3);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 24px 0;
+      color: #999;
+      font-size: 12px;
+      position: relative;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background: #ddd;
+      z-index: -1;
+    }
+
+    body.dark-mode .divider {
+      color: #666;
+    }
+
+    body.dark-mode .divider::before {
+      background: #444;
+    }
+
+    .divider span {
+      background: white;
+      padding: 0 8px;
+    }
+
+    body.dark-mode .divider span {
+      background: #2a2a2a;
+    }
+
+    .oauth-buttons {
+      display: grid;
+      gap: 12px;
+    }
+
+    .oauth-btn {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    body.dark-mode .oauth-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #444;
+      color: var(--text-light);
+    }
+
+    .oauth-btn:hover {
+      border-color: var(--primary-color);
+      background: var(--light-bg);
+    }
+
+    body.dark-mode .oauth-btn:hover {
+      background: rgba(15, 95, 45, 0.2);
+    }
+
+    .oauth-btn.google:hover {
+      border-color: #4285f4;
+      background: #f1f5ff;
+    }
+
+    body.dark-mode .oauth-btn.google:hover {
+      background: rgba(66, 133, 244, 0.2);
+    }
+
+    .oauth-btn.microsoft:hover {
+      border-color: #00a4ef;
+      background: #f1f5ff;
+    }
+
+    body.dark-mode .oauth-btn.microsoft:hover {
+      background: rgba(0, 164, 239, 0.2);
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    body.dark-mode .signup-link {
+      color: #aaa;
+    }
+
+    .signup-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Favorites Modal */
+    .favorites-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .favorites-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .favorites-modal-content {
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideInUp 0.3s ease-out;
+    }
+
+    body.dark-mode .favorites-modal-content {
+      background: #2a2a2a;
+      color: var(--text-light);
     }
 
     .notice {
@@ -669,6 +975,9 @@
       <div class="nav-right">
         <button class="favorites-btn" id="favoritesBtn" title="View Favorites">❤️ <span id="favCount">0</span></button>
         <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+        <div id="authSection">
+          <button class="auth-btn" id="signInBtn" onclick="openLoginModal()">Sign In</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -720,9 +1029,67 @@
     </section>
   </div>
 
-  <!-- Favorites Modal -->
-  <div class="modal" id="favoritesModal">
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
     <div class="modal-content">
+      <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+      <h2 class="login-title">Sign In</h2>
+      <p class="login-subtitle">Welcome back to MangaGreen</p>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <!-- Username/Email Field -->
+        <div class="form-group">
+          <label for="username">Username or Email</label>
+          <input 
+            type="text" 
+            id="username" 
+            placeholder="Enter your username or email"
+            autocomplete="username"
+          >
+          <div class="error-message" id="usernameError"></div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Enter your password"
+            autocomplete="current-password"
+          >
+          <div class="error-message" id="passwordError"></div>
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="login-btn">Sign In</button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <!-- OAuth Buttons -->
+      <div class="oauth-buttons">
+        <button class="oauth-btn google" onclick="handleGoogleSignIn()">
+          🔵 Continue with Google
+        </button>
+        <button class="oauth-btn microsoft" onclick="handleMicrosoftSignIn()">
+          🟦 Continue with Microsoft
+        </button>
+      </div>
+
+      <!-- Sign Up Link -->
+      <div class="signup-link">
+        Don't have an account? <a onclick="alert('Sign up feature coming soon!')">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Favorites Modal -->
+  <div class="favorites-modal" id="favoritesModal">
+    <div class="favorites-modal-content">
       <span class="close-modal" onclick="closeFavorites()">&times;</span>
       <h2>❤️ Your Favorites</h2>
       <ul id="favoritesList" style="list-style: none; padding: 0;">
@@ -737,6 +1104,12 @@
   </footer>
 
   <script>
+    // ===== TEST ACCOUNTS =====
+    const testAccounts = [
+      { username: 'testuser', email: 'testuser@mangagreen.com', password: 'password123' },
+      { username: 'admin', email: 'admin@mangagreen.com', password: 'admin123' }
+    ];
+
     // Manga Database
     const mangas = [
       {
@@ -760,15 +1133,119 @@
     let currentFilter = 'all';
     let currentSearch = '';
     let favorites = JSON.parse(localStorage.getItem('mangaFavorites')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('mangaGreenUser')) || null;
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       renderManga();
       updateFavCount();
       loadTheme();
+      updateAuthUI();
     });
 
-    // Render Manga
+    // ===== AUTH FUNCTIONS =====
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.add('active');
+      document.getElementById('loginForm').reset();
+      clearErrors();
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('active');
+      clearErrors();
+    }
+
+    function clearErrors() {
+      document.getElementById('usernameError').classList.remove('show');
+      document.getElementById('passwordError').classList.remove('show');
+      document.getElementById('username').classList.remove('error');
+      document.getElementById('password').classList.remove('error');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      clearErrors();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      let usernameValid = false;
+      let passwordValid = false;
+      let matchedUser = null;
+
+      // Check username/email
+      for (let account of testAccounts) {
+        if (username === account.username || username === account.email) {
+          usernameValid = true;
+          matchedUser = account;
+          break;
+        }
+      }
+
+      // Check password (only if username was valid)
+      if (usernameValid && matchedUser.password === password) {
+        passwordValid = true;
+      }
+
+      // Show errors
+      if (!usernameValid) {
+        document.getElementById('usernameError').textContent = '❌ Wrong Username/Email, try again';
+        document.getElementById('usernameError').classList.add('show');
+        document.getElementById('username').classList.add('error');
+      }
+
+      if (usernameValid && !passwordValid) {
+        document.getElementById('passwordError').textContent = '❌ Wrong Password, try again';
+        document.getElementById('passwordError').classList.add('show');
+        document.getElementById('password').classList.add('error');
+      }
+
+      // If both valid, log in
+      if (usernameValid && passwordValid) {
+        currentUser = {
+          username: matchedUser.username,
+          email: matchedUser.email
+        };
+        localStorage.setItem('mangaGreenUser', JSON.stringify(currentUser));
+        updateAuthUI();
+        closeLoginModal();
+        alert(`✅ Welcome, ${currentUser.username}!`);
+      }
+    }
+
+    function handleGoogleSignIn() {
+      alert('🔵 Google Sign In is ready for backend integration!\n\nYou\'ll be redirected to Google OAuth in production.');
+      // In production, redirect to: https://accounts.google.com/o/oauth2/v2/auth?...
+    }
+
+    function handleMicrosoftSignIn() {
+      alert('🟦 Microsoft Sign In is ready for backend integration!\n\nYou\'ll be redirected to Microsoft OAuth in production.');
+      // In production, redirect to: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?...
+    }
+
+    function updateAuthUI() {
+      const authSection = document.getElementById('authSection');
+      
+      if (currentUser) {
+        authSection.innerHTML = `
+          <div class="user-profile">
+            <span>👤 ${currentUser.username}</span>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+          </div>
+        `;
+      } else {
+        authSection.innerHTML = `<button class="auth-btn" id="signInBtn" onclick="openLoginModal()">Sign In</button>`;
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      localStorage.removeItem('mangaGreenUser');
+      updateAuthUI();
+      alert('👋 You have been logged out!');
+    }
+
+    // ===== MANGA FUNCTIONS =====
     function renderManga() {
       const mangaGrid = document.getElementById('mangaGrid');
       mangaGrid.innerHTML = '';
@@ -822,13 +1299,11 @@
       });
     }
 
-    // Filter Mangas
     function filterMangas(filter) {
       currentFilter = filter;
-      currentSearch = ''; // Clear search when filtering
-      document.getElementById('searchBox').value = ''; // Clear search input
+      currentSearch = '';
+      document.getElementById('searchBox').value = '';
       
-      // Update active button
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
       });
@@ -837,8 +1312,13 @@
       renderManga();
     }
 
-    // Toggle Favorite
     function toggleFavorite(mangaId) {
+      if (!currentUser) {
+        alert('⚠️ Please sign in to add favorites!');
+        openLoginModal();
+        return;
+      }
+
       const index = favorites.indexOf(mangaId);
       if (index > -1) {
         favorites.splice(index, 1);
@@ -851,12 +1331,10 @@
       renderManga();
     }
 
-    // Update Favorite Count
     function updateFavCount() {
       document.getElementById('favCount').textContent = favorites.length;
     }
 
-    // Show Favorites Modal
     document.getElementById('favoritesBtn').addEventListener('click', () => {
       const modal = document.getElementById('favoritesModal');
       const list = document.getElementById('favoritesList');
@@ -882,18 +1360,15 @@
       modal.classList.add('active');
     });
 
-    // Close Favorites Modal
     function closeFavorites() {
       document.getElementById('favoritesModal').classList.remove('active');
     }
 
-    // Search Functionality (FIXED)
     document.getElementById('searchBox').addEventListener('input', (e) => {
       currentSearch = e.target.value;
       renderManga();
     });
 
-    // Dark Mode Toggle
     function loadTheme() {
       const theme = localStorage.getItem('theme') || 'light';
       if (theme === 'dark') {
@@ -909,7 +1384,12 @@
       document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️' : '🌙';
     });
 
-    // Close modal when clicking outside
+    document.getElementById('loginModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('loginModal')) {
+        closeLoginModal();
+      }
+    });
+
     document.getElementById('favoritesModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('favoritesModal')) {
         closeFavorites();
