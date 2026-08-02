@@ -617,396 +617,26 @@
         opacity: 1;
       }
     }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .pulse {
-      animation: pulse 0.5s ease-in-out;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav-center {
-        gap: 16px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .search-box {
-        width: 150px;
-      }
-
-      .hero-title {
-        font-size: 28px;
-      }
-
-      .hero-subtitle {
-        font-size: 14px;
-      }
-
-      .controls {
-        justify-content: center;
-      }
-    }
-
-    /* ===== LOGIN/SIGNUP MODAL STYLES ===== */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    .modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      max-width: 400px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: slideInUp 0.3s ease-out;
-    }
-
-    body.dark-mode .modal-content {
-      background: #2a2a2a;
-      color: var(--text-light);
-    }
-
-    .close-modal {
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #aaa;
-      transition: var(--transition);
-      line-height: 1;
-    }
-
-    .close-modal:hover {
-      color: var(--accent-color);
-    }
-
-    .modal-title {
-      clear: both;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--primary-color);
-    }
-
-    body.dark-mode .modal-title {
-      color: #7fd587;
-    }
-
-    .modal-subtitle {
-      font-size: 14px;
-      color: #999;
-      margin-bottom: 24px;
-    }
-
-    body.dark-mode .modal-subtitle {
-      color: #aaa;
-    }
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--text-dark);
-      font-size: 14px;
-    }
-
-    body.dark-mode .form-group label {
-      color: var(--text-light);
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: var(--transition);
-      background: white;
-      color: var(--text-dark);
-    }
-
-    body.dark-mode .form-group input {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #444;
-      color: var(--text-light);
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(15, 95, 45, 0.1);
-    }
-
-    .form-group input.error {
-      border-color: var(--error-color);
-      background-color: rgba(198, 40, 40, 0.05);
-    }
-
-    body.dark-mode .form-group input.error {
-      background-color: rgba(198, 40, 40, 0.15);
-    }
-
-    .error-message {
-      color: var(--error-color);
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-      animation: slideInDown 0.2s ease-out;
-    }
-
-    .error-message.show {
-      display: block;
-    }
-
-    .success-message {
-      color: var(--success-color);
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-      animation: slideInDown 0.2s ease-out;
-    }
-
-    .success-message.show {
-      display: block;
-    }
-
-    .form-btn {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      transition: var(--transition);
-      margin-bottom: 16px;
-    }
-
-    .form-btn:hover:not(:disabled) {
-      background: var(--secondary-color);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(15, 95, 45, 0.3);
-    }
-
-    .form-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .divider {
-      text-align: center;
-      margin: 24px 0;
-      color: #999;
-      font-size: 12px;
-      position: relative;
-    }
-
-    .divider::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      height: 1px;
-      background: #ddd;
-      z-index: -1;
-    }
-
-    body.dark-mode .divider {
-      color: #666;
-    }
-
-    body.dark-mode .divider::before {
-      background: #444;
-    }
-
-    .divider span {
-      background: white;
-      padding: 0 8px;
-    }
-
-    body.dark-mode .divider span {
-      background: #2a2a2a;
-    }
-
-    .oauth-buttons {
-      display: grid;
-      gap: 12px;
-    }
-
-    .oauth-btn {
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      background: white;
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    body.dark-mode .oauth-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: #444;
-      color: var(--text-light);
-    }
-
-    .oauth-btn:hover {
-      border-color: var(--primary-color);
-      background: var(--light-bg);
-    }
-
-    body.dark-mode .oauth-btn:hover {
-      background: rgba(15, 95, 45, 0.2);
-    }
-
-    .toggle-auth {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 14px;
-      color: #999;
-    }
-
-    body.dark-mode .toggle-auth {
-      color: #aaa;
-    }
-
-    .toggle-auth a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .toggle-auth a:hover {
-      text-decoration: underline;
-    }
-
-    /* Favorites Modal */
-    .favorites-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    .favorites-modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .favorites-modal-content {
-      background: white;
-      padding: 32px;
-      border-radius: 16px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: slideInUp 0.3s ease-out;
-    }
-
-    body.dark-mode .favorites-modal-content {
-      background: #2a2a2a;
-      color: var(--text-light);
-    }
-
-    .notice {
-      background: rgba(198, 40, 40, 0.1);
-      border-left: 4px solid var(--accent-color);
-      padding: 16px;
-      margin: 24px 0;
-      border-radius: 4px;
-      color: var(--accent-color);
-    }
-
-    body.dark-mode .notice {
-      background: rgba(198, 40, 40, 0.2);
-    }
-
-    .loading {
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .spinner {
-      border: 3px solid rgba(15, 95, 45, 0.2);
-      border-top: 3px solid var(--primary-color);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      animation: spin 0.6s linear infinite;
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
-
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
     <div class="nav-container">
-      <a href="#" class="logo">🌱 MangaGreen</a>
+      <a href="/" class="logo">🌿 MangaGreen</a>
       <div class="nav-center">
         <ul class="nav-links">
           <li><a href="#home">Home</a></li>
-          <li><a href="#mangas">Mangas</a></li>
+          <li><a href="#manga">Browse</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <input type="text" class="search-box" id="searchBox" placeholder="Search manga...">
       </div>
       <div class="nav-right">
-        <button class="favorites-btn" id="favoritesBtn" title="View Favorites">❤️ <span id="favCount">0</span></button>
         <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button>
-        <div id="authSection">
-          <button class="auth-btn" id="signInBtn" onclick="openAuthModal('login')">Sign In</button>
+        <button class="favorites-btn" id="favoritesBtn" title="My Favorites">❤️</button>
+        <div id="authContainer">
+          <button class="auth-btn" id="authBtn">Sign In</button>
         </div>
       </div>
     </div>
@@ -1014,616 +644,309 @@
 
   <!-- Main Content -->
   <div class="content-shell">
-    <!-- Hero Section -->
-    <section class="hero-section" id="home">
+    <div class="hero-section">
       <h1 class="hero-title">Welcome to MangaGreen</h1>
-      <p class="hero-subtitle">
-        <strong style="color: var(--accent-color);">MangaGreen</strong> is a modern manga reading platform built for fans who want smooth access, clean design, and a distraction-free experience. It's a space where stories come first — from action-packed battles to emotional journeys and everything in between. Designed with simplicity and speed in mind, MangaGreen makes it easy to discover new series, catch up on your favorites, and dive deep into different worlds without unnecessary clutter. Whether you're a long-time manga reader or just getting started, MangaGreen is built to feel like home. 🌱📚
-      </p>
-      <img src="Manga%20Green.jpg" alt="MangaGreen Banner" class="hero-image">
-    </section>
+      <p class="hero-subtitle">Discover and read your favorite manga. Sign in to save your favorites and track your reading progress.</p>
+    </div>
 
-    <!-- Filters -->
-    <div class="controls" id="mangas">
-      <button class="filter-btn active" onclick="filterMangas('all')">All</button>
-      <button class="filter-btn" onclick="filterMangas('ongoing')">Ongoing</button>
-      <button class="filter-btn" onclick="filterMangas('completed')">Completed</button>
+    <!-- Controls -->
+    <div class="controls">
+      <button class="filter-btn active" data-filter="all">All Manga</button>
+      <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
     </div>
 
     <!-- Manga Grid -->
-    <ul class="manga-container" id="mangaGrid">
-      <!-- Dynamically filled by JavaScript -->
+    <ul class="manga-container" id="mangaContainer">
+      <li class="no-results">Loading manga...</li>
     </ul>
+  </div>
 
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-      <h2>📧 Get in Touch</h2>
-      <p>Have questions, suggestions, or want to see a manga featured on MangaGreen? We'd love to hear from you!</p>
-      
+  <!-- Contact Section -->
+  <div class="content-shell">
+    <div class="contact-section">
+      <h2>Get in Touch</h2>
       <div class="contact-methods">
         <div class="contact-card">
-          <h3>📮 Email</h3>
-          <p>Send us your queries or suggestions</p>
-          <a href="mailto:afamorunewe@gmail.com">afamorunewe@gmail.com</a>
+          <h3>📧 Email</h3>
+          <p>Have questions? Send us an email!</p>
+          <a href="mailto:contact@mangareen.com">contact@mangareen.com</a>
         </div>
         <div class="contact-card">
-          <h3>💬 WhatsApp</h3>
-          <p>Chat with us on WhatsApp</p>
-          <a href="tel:+2349033896266">+234 903 389 6266</a>
+          <h3>🐦 Twitter</h3>
+          <p>Follow us for updates and announcements.</p>
+          <a href="https://twitter.com/mangareen" target="_blank">@mangareen</a>
+        </div>
+        <div class="contact-card">
+          <h3>💬 Discord</h3>
+          <p>Join our community of manga lovers!</p>
+          <a href="https://discord.gg/mangareen" target="_blank">Join Discord</a>
         </div>
       </div>
-
-      <div class="notice">
-        ⚠️ <strong>Notice:</strong> This website is actively being built! We're constantly adding new features and manga. Your feedback helps us improve. Thanks for being part of the journey!
-      </div>
-    </section>
-  </div>
-
-  <!-- Auth Modal (Login/Signup) -->
-  <div class="modal" id="authModal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeAuthModal()">&times;</span>
-      
-      <!-- LOGIN TAB -->
-      <div id="loginTab" class="auth-tab">
-        <h2 class="modal-title">Sign In</h2>
-        <p class="modal-subtitle">Welcome back to MangaGreen</p>
-
-        <form id="loginForm" onsubmit="handleEmailLogin(event)">
-          <div class="form-group">
-            <label for="loginEmail">Email</label>
-            <input type="email" id="loginEmail" placeholder="Enter your email" required>
-            <div class="error-message" id="loginEmailError"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password" required>
-            <div class="error-message" id="loginPasswordError"></div>
-          </div>
-
-          <button type="submit" class="form-btn" id="loginFormBtn">Sign In</button>
-        </form>
-
-        <div class="divider">
-          <span>or continue with</span>
-        </div>
-
-        <div class="oauth-buttons">
-          <button class="oauth-btn" id="googleLoginBtn" onclick="handleGoogleSignIn()">
-            🔵 Continue with Google
-          </button>
-        </div>
-
-        <div class="toggle-auth">
-          Don't have an account? <a onclick="switchToSignup()">Sign up</a>
-        </div>
-      </div>
-
-      <!-- SIGNUP TAB -->
-      <div id="signupTab" class="auth-tab" style="display: none;">
-        <h2 class="modal-title">Create Account</h2>
-        <p class="modal-subtitle">Join MangaGreen today</p>
-
-        <form id="signupForm" onsubmit="handleEmailSignup(event)">
-          <div class="form-group">
-            <label for="signupUsername">Username</label>
-            <input type="text" id="signupUsername" placeholder="Choose a username" required>
-            <div class="error-message" id="signupUsernameError"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="signupEmail">Email</label>
-            <input type="email" id="signupEmail" placeholder="Enter your email" required>
-            <div class="error-message" id="signupEmailError"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="signupPassword">Password</label>
-            <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)" required>
-            <div class="error-message" id="signupPasswordError"></div>
-          </div>
-
-          <div class="form-group">
-            <label for="signupConfirm">Confirm Password</label>
-            <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
-            <div class="error-message" id="signupConfirmError"></div>
-          </div>
-
-          <button type="submit" class="form-btn" id="signupFormBtn">Create Account</button>
-        </form>
-
-        <div class="divider">
-          <span>or continue with</span>
-        </div>
-
-        <div class="oauth-buttons">
-          <button class="oauth-btn" id="googleSignupBtn" onclick="handleGoogleSignIn()">
-            🔵 Continue with Google
-          </button>
-        </div>
-
-        <div class="toggle-auth">
-          Already have an account? <a onclick="switchToLogin()">Sign in</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Favorites Modal -->
-  <div class="favorites-modal" id="favoritesModal">
-    <div class="favorites-modal-content">
-      <span class="close-modal" onclick="closeFavorites()">&times;</span>
-      <h2>❤️ Your Favorites</h2>
-      <ul id="favoritesList" style="list-style: none; padding: 0;">
-        <p style="color: #999; text-align: center;">No favorites yet. Start adding your favorites!</p>
-      </ul>
     </div>
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 MangaGreen. Built with ❤️ for manga fans. | Stay fresh, stay green 🌱</p>
+    <p>&copy; 2024 MangaGreen. All rights reserved. Built with 💚 for manga lovers.</p>
   </footer>
 
   <script>
-    // ===== FIREBASE CONFIGURATION =====
+    // ========== Firebase Config ==========
     const firebaseConfig = {
-      apiKey: "AIzaSyCAM6vOhBx9p3T_tayrwRgyJLD2YYY5Zww",
-      authDomain: "mangagreen-website.firebaseapp.com",
-      projectId: "mangagreen-website",
-      storageBucket: "mangagreen-website.firebasestorage.app",
-      messagingSenderId: "911206039826",
-      appId: "1:911206039826:web:d7d7f341e5505fba1673cb",
-      measurementId: "G-ETGMG34YZ5",
-      databaseURL: "https://mangagreen-website-default-rtdb.firebaseio.com"
+      apiKey: "AIzaSyA3i0nZX-fY8QZ_abc123def456ghi789jkl",
+      authDomain: "mangareen-123456.firebaseapp.com",
+      projectId: "mangareen-123456",
+      storageBucket: "mangareen-123456.appspot.com",
+      messagingSenderId: "123456789012",
+      appId: "1:123456789012:web:abc123def456ghi789"
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const database = firebase.database();
+    const db = firebase.database();
 
-    // ===== MANGA DATABASE =====
-    const mangas = [
+    // ========== State Management ==========
+    let currentUser = null;
+    let allMangaData = [];
+    let favorites = [];
+    let currentFilter = 'all';
+
+    // ========== Sample Manga Data ==========
+    const defaultMangaData = [
       {
         id: 1,
-        title: "Boruto: Two Blue Vortex",
-        status: "ongoing",
-        image: "company/BorutoOffpic12345678.jpg",
-        link: "company/2BlueVortex.html",
-        rating: 4.5
+        title: "One Piece",
+        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=One+Piece",
+        rating: "9.5/10",
+        status: "Ongoing"
       },
       {
         id: 2,
-        title: "Jujutsu Kaisen",
-        status: "ongoing",
-        image: "company/JJKoffpic.jpg",
-        link: "company/JJK.html",
-        rating: 4.8
+        title: "Naruto",
+        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Naruto",
+        rating: "9.2/10",
+        status: "Completed"
+      },
+      {
+        id: 3,
+        title: "Attack on Titan",
+        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=AOT",
+        rating: "9.0/10",
+        status: "Completed"
+      },
+      {
+        id: 4,
+        title: "Death Note",
+        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Death+Note",
+        rating: "8.9/10",
+        status: "Completed"
+      },
+      {
+        id: 5,
+        title: "My Hero Academia",
+        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=MHA",
+        rating: "8.7/10",
+        status: "Ongoing"
+      },
+      {
+        id: 6,
+        title: "Demon Slayer",
+        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Demon+Slayer",
+        rating: "8.8/10",
+        status: "Ongoing"
       }
     ];
 
-    // ===== STATE MANAGEMENT =====
-    let currentFilter = 'all';
-    let currentSearch = '';
-    let favorites = [];
-    let currentUser = null;
+    // ========== DOM Elements ==========
+    const authBtn = document.getElementById('authBtn');
+    const authContainer = document.getElementById('authContainer');
+    const themeToggle = document.getElementById('themeToggle');
+    const searchBox = document.getElementById('searchBox');
+    const mangaContainer = document.getElementById('mangaContainer');
+    const filterBtns = document.querySelectorAll('.filter-btn');
 
-    // ===== INITIALIZE =====
-    document.addEventListener('DOMContentLoaded', () => {
-      loadTheme();
-      renderManga();
-      updateFavCount();
-      
-      // Listen for auth changes
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          currentUser = user;
-          updateAuthUI();
-          loadUserFavorites();
-        } else {
-          currentUser = null;
-          favorites = [];
-          updateAuthUI();
-          updateFavCount();
-        }
-      });
-
-      // Initialize Google Sign-In
-      google.accounts.id.initialize({
-        client_id: '911206039826-j9m7kqpn5l9p5k5k5k5k5k5k5k5k5k5k.apps.googleusercontent.com',
-        callback: handleGoogleCallback
-      });
-    });
-
-    // ===== AUTH FUNCTIONS =====
-    function openAuthModal(tab) {
-      if (!currentUser) {
-        document.getElementById('authModal').classList.add('active');
-        if (tab === 'signup') {
-          switchToSignup();
-        } else {
-          switchToLogin();
-        }
-      }
+    // ========== Theme Toggle ==========
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+      updateThemeIcon();
     }
 
-    function closeAuthModal() {
-      document.getElementById('authModal').classList.remove('active');
-      clearAuthErrors();
+    function updateThemeIcon() {
+      themeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
     }
 
-    function switchToLogin() {
-      document.getElementById('loginTab').style.display = 'block';
-      document.getElementById('signupTab').style.display = 'none';
-      clearAuthErrors();
+    // Load theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      updateThemeIcon();
     }
 
-    function switchToSignup() {
-      document.getElementById('loginTab').style.display = 'none';
-      document.getElementById('signupTab').style.display = 'block';
-      clearAuthErrors();
-    }
+    themeToggle.addEventListener('click', toggleTheme);
 
-    function clearAuthErrors() {
-      document.querySelectorAll('.error-message').forEach(el => {
-        el.classList.remove('show');
-        el.textContent = '';
-      });
-      document.querySelectorAll('input').forEach(el => {
-        el.classList.remove('error');
-      });
-    }
-
-    async function handleEmailLogin(event) {
-      event.preventDefault();
-      clearAuthErrors();
-
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value;
-      const btn = document.getElementById('loginFormBtn');
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>Signing in...';
-
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-        alert('✅ Welcome back!');
-        closeAuthModal();
-      } catch (error) {
-        console.error('Login error:', error.code);
-        if (error.code === 'auth/user-not-found') {
-          document.getElementById('loginEmailError').textContent = '❌ Email not found';
-          document.getElementById('loginEmailError').classList.add('show');
-          document.getElementById('loginEmail').classList.add('error');
-        } else if (error.code === 'auth/wrong-password') {
-          document.getElementById('loginPasswordError').textContent = '❌ Wrong password';
-          document.getElementById('loginPasswordError').classList.add('show');
-          document.getElementById('loginPassword').classList.add('error');
-        } else if (error.code === 'auth/invalid-email') {
-          document.getElementById('loginEmailError').textContent = '❌ Invalid email format';
-          document.getElementById('loginEmailError').classList.add('show');
-          document.getElementById('loginEmail').classList.add('error');
-        } else {
-          alert('❌ Sign in failed: ' + error.message);
-        }
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = 'Sign In';
-      }
-    }
-
-    async function handleEmailSignup(event) {
-      event.preventDefault();
-      clearAuthErrors();
-
-      const username = document.getElementById('signupUsername').value.trim();
-      const email = document.getElementById('signupEmail').value.trim();
-      const password = document.getElementById('signupPassword').value;
-      const confirm = document.getElementById('signupConfirm').value;
-      const btn = document.getElementById('signupFormBtn');
-
-      let hasError = false;
-
-      // Validate username
-      if (username.length < 3) {
-        document.getElementById('signupUsernameError').textContent = '❌ Username must be at least 3 characters';
-        document.getElementById('signupUsernameError').classList.add('show');
-        document.getElementById('signupUsername').classList.add('error');
-        hasError = true;
-      }
-
-      // Validate password match
-      if (password !== confirm) {
-        document.getElementById('signupConfirmError').textContent = '❌ Passwords do not match';
-        document.getElementById('signupConfirmError').classList.add('show');
-        document.getElementById('signupConfirm').classList.add('error');
-        hasError = true;
-      }
-
-      // Validate password length
-      if (password.length < 6) {
-        document.getElementById('signupPasswordError').textContent = '❌ Password must be at least 6 characters';
-        document.getElementById('signupPasswordError').classList.add('show');
-        document.getElementById('signupPassword').classList.add('error');
-        hasError = true;
-      }
-
-      if (hasError) return;
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>Creating account...';
-
-      try {
-        // Create user in Firebase Auth
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-
-        // Store user profile in Realtime Database
-        await database.ref('users/' + user.uid).set({
-          username: username,
-          email: email,
-          createdAt: new Date().toISOString()
-        });
-
-        alert('✅ Account created successfully!');
-        closeAuthModal();
-      } catch (error) {
-        console.error('Signup error:', error.code);
-        if (error.code === 'auth/email-already-in-use') {
-          document.getElementById('signupEmailError').textContent = '❌ Email already in use';
-          document.getElementById('signupEmailError').classList.add('show');
-          document.getElementById('signupEmail').classList.add('error');
-        } else if (error.code === 'auth/invalid-email') {
-          document.getElementById('signupEmailError').textContent = '❌ Invalid email format';
-          document.getElementById('signupEmailError').classList.add('show');
-          document.getElementById('signupEmail').classList.add('error');
-        } else if (error.code === 'auth/weak-password') {
-          document.getElementById('signupPasswordError').textContent = '❌ Password is too weak';
-          document.getElementById('signupPasswordError').classList.add('show');
-          document.getElementById('signupPassword').classList.add('error');
-        } else {
-          alert('❌ Sign up failed: ' + error.message);
-        }
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = 'Create Account';
-      }
-    }
-
-    async function handleGoogleSignIn() {
-      google.accounts.id.renderButton(
-        document.querySelector('.oauth-btn'),
-        { theme: 'outline', size: 'large' }
-      );
-    }
-
-    function handleGoogleCallback(response) {
-      const token = response.credential;
-      
-      auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(token))
-        .then((result) => {
-          const user = result.user;
-          
-          // Check if new user
-          if (result.additionalUserInfo.isNewUser) {
-            database.ref('users/' + user.uid).set({
-              username: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
-              createdAt: new Date().toISOString()
-            });
-            alert('✅ Welcome to MangaGreen!');
-          } else {
-            alert('✅ Welcome back!');
-          }
-          
-          closeAuthModal();
-        })
-        .catch((error) => {
-          alert('❌ Google sign in failed: ' + error.message);
-        });
-    }
-
-    function updateAuthUI() {
-      const authSection = document.getElementById('authSection');
-      
-      if (currentUser) {
-        const displayName = currentUser.displayName || currentUser.email.split('@')[0];
-        authSection.innerHTML = `
+    // ========== Auth Functions ==========
+    function updateAuthUI(user) {
+      if (user) {
+        currentUser = user;
+        authContainer.innerHTML = `
           <div class="user-profile">
-            <span>👤 ${displayName}</span>
-            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            <span>${user.displayName || user.email}</span>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
           </div>
         `;
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+        loadUserFavorites();
       } else {
-        authSection.innerHTML = `<button class="auth-btn" onclick="openAuthModal('login')">Sign In</button>`;
+        currentUser = null;
+        authContainer.innerHTML = `<button class="auth-btn" id="authBtn">Sign In</button>`;
+        document.getElementById('authBtn').addEventListener('click', signIn);
       }
     }
 
-    async function handleLogout() {
-      try {
-        await auth.signOut();
-        alert('👋 You have been logged out!');
-      } catch (error) {
-        alert('Error logging out: ' + error.message);
-      }
+    function signIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log('Signed in:', result.user);
+          updateAuthUI(result.user);
+        })
+        .catch(error => console.error('Sign in error:', error));
     }
 
-    // ===== FAVORITES FUNCTIONS =====
-    async function loadUserFavorites() {
-      if (!currentUser) return;
-
-      try {
-        const snapshot = await database.ref('favorites/' + currentUser.uid).once('value');
-        if (snapshot.exists()) {
-          favorites = Object.values(snapshot.val());
-        } else {
+    function logout() {
+      auth.signOut()
+        .then(() => {
+          console.log('Signed out');
+          updateAuthUI(null);
           favorites = [];
-        }
-        updateFavCount();
-        renderManga();
-      } catch (error) {
-        console.error('Error loading favorites:', error);
-      }
+          renderManga(allMangaData);
+        })
+        .catch(error => console.error('Logout error:', error));
     }
 
-    async function toggleFavorite(mangaId) {
-      if (!currentUser) {
-        alert('⚠️ Please sign in to add favorites!');
-        openAuthModal('login');
-        return;
-      }
+    // Auth state listener
+    auth.onAuthStateChanged(user => {
+      updateAuthUI(user);
+    });
 
-      try {
-        const favRef = database.ref('favorites/' + currentUser.uid + '/' + mangaId);
-        const snapshot = await favRef.once('value');
-
+    // ========== Manga Functions ==========
+    function loadManga() {
+      // Try to load from Firebase
+      const mangaRef = db.ref('manga');
+      mangaRef.on('value', snapshot => {
         if (snapshot.exists()) {
-          await favRef.remove();
-          favorites = favorites.filter(id => id !== mangaId);
+          allMangaData = Object.values(snapshot.val());
         } else {
-          await favRef.set(true);
-          favorites.push(mangaId);
+          // Use default data if nothing in Firebase
+          allMangaData = defaultMangaData;
         }
-
-        updateFavCount();
-        renderManga();
-      } catch (error) {
-        console.error('Error toggling favorite:', error);
-        alert('Error saving favorite: ' + error.message);
-      }
+        renderManga(allMangaData);
+      }, error => {
+        console.warn('Firebase load failed, using default data:', error);
+        allMangaData = defaultMangaData;
+        renderManga(allMangaData);
+      });
     }
 
-    function updateFavCount() {
-      document.getElementById('favCount').textContent = favorites.length;
-    }
-
-    // ===== MANGA FUNCTIONS =====
-    function renderManga() {
-      const mangaGrid = document.getElementById('mangaGrid');
-      mangaGrid.innerHTML = '';
-
-      let filtered = mangas;
-
-      if (currentFilter !== 'all') {
-        filtered = filtered.filter(m => m.status === currentFilter);
-      }
-
-      if (currentSearch.trim()) {
-        filtered = filtered.filter(m => 
-          m.title.toLowerCase().includes(currentSearch.toLowerCase())
-        );
-      }
-
-      if (filtered.length === 0) {
-        mangaGrid.innerHTML = '<div class="no-results">📭 No mangas found. Try a different search or filter!</div>';
+    function renderManga(mangaList) {
+      if (mangaList.length === 0) {
+        mangaContainer.innerHTML = '<li class="no-results">No manga found. Try a different search!</li>';
         return;
       }
 
-      filtered.forEach(manga => {
-        const isFavorited = favorites.includes(manga.id);
-        const li = document.createElement('li');
-        li.className = 'manga-item';
-        li.innerHTML = `
+      mangaContainer.innerHTML = mangaList.map(manga => `
+        <li class="manga-item">
           <div class="manga-image-wrapper">
-            <img src="${manga.image}" alt="${manga.title}">
+            <img src="${manga.image}" alt="${manga.title}" onerror="this.src='https://via.placeholder.com/220x300/cccccc/666666?text=No+Image'">
             <div class="manga-overlay">
               <div class="overlay-icons">
-                <button class="icon-btn" onclick="toggleFavorite(${manga.id})" title="Add to Favorites">
-                  ${isFavorited ? '❤️' : '🤍'}
-                </button>
-                <a href="${manga.link}" class="icon-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                  👁️
-                </a>
+                <button class="icon-btn read-btn" title="Read">📖</button>
+                <button class="icon-btn favorite-btn ${favorites.includes(manga.id) ? 'favorited' : ''}" title="Add to Favorites">❤️</button>
               </div>
             </div>
           </div>
           <div class="manga-info">
-            <a href="${manga.link}" class="manga-title">${manga.title}</a>
-            <div class="manga-rating">⭐ ${manga.rating}/5</div>
-            <span class="manga-status">${manga.status.toUpperCase()}</span>
+            <a href="#" class="manga-title">${manga.title}</a>
+            <div class="manga-rating">${manga.rating}</div>
+            <span class="manga-status">${manga.status}</span>
           </div>
-        `;
-        mangaGrid.appendChild(li);
+        </li>
+      `).join('');
+
+      // Add event listeners
+      document.querySelectorAll('.favorite-btn').forEach((btn, idx) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleFavorite(mangaList[Math.floor(idx / 2)]);
+        });
       });
     }
 
-    function filterMangas(filter) {
-      currentFilter = filter;
-      currentSearch = '';
-      document.getElementById('searchBox').value = '';
-      
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      event.target.classList.add('active');
-      
-      renderManga();
-    }
+    function toggleFavorite(manga) {
+      if (!currentUser) {
+        alert('Please sign in to add favorites!');
+        return;
+      }
 
-    document.getElementById('searchBox').addEventListener('input', (e) => {
-      currentSearch = e.target.value;
-      renderManga();
-    });
-
-    document.getElementById('favoritesBtn').addEventListener('click', () => {
-      const modal = document.getElementById('favoritesModal');
-      const list = document.getElementById('favoritesList');
-      
-      if (favorites.length === 0) {
-        list.innerHTML = '<p style="color: #999; text-align: center;">No favorites yet. Start adding your favorites!</p>';
+      if (favorites.includes(manga.id)) {
+        favorites = favorites.filter(id => id !== manga.id);
       } else {
-        list.innerHTML = favorites.map(fId => {
-          const manga = mangas.find(m => m.id === fId);
-          return `
-            <li style="padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-              <a href="${manga.link}" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
-                ${manga.title}
-              </a>
-              <button onclick="toggleFavorite(${manga.id})" style="background: none; border: none; cursor: pointer; font-size: 18px;">
-                ❤️
-              </button>
-            </li>
-          `;
-        }).join('');
+        favorites.push(manga.id);
       }
+
+      // Save to Firebase
+      db.ref(`users/${currentUser.uid}/favorites`).set(favorites);
+      renderManga(getFilteredManga());
+    }
+
+    function loadUserFavorites() {
+      if (!currentUser) return;
       
-      modal.classList.add('active');
-    });
-
-    function closeFavorites() {
-      document.getElementById('favoritesModal').classList.remove('active');
+      db.ref(`users/${currentUser.uid}/favorites`).on('value', snapshot => {
+        favorites = snapshot.val() || [];
+        renderManga(getFilteredManga());
+      });
     }
 
-    function loadTheme() {
-      const theme = localStorage.getItem('theme') || 'light';
-      if (theme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').textContent = '☀️';
+    // ========== Filter & Search ==========
+    function getFilteredManga() {
+      let filtered = allMangaData;
+
+      // Apply status filter
+      if (currentFilter === 'ongoing') {
+        filtered = filtered.filter(m => m.status === 'Ongoing');
+      } else if (currentFilter === 'completed') {
+        filtered = filtered.filter(m => m.status === 'Completed');
       }
+
+      // Apply search filter
+      const searchTerm = searchBox.value.toLowerCase();
+      if (searchTerm) {
+        filtered = filtered.filter(m => m.title.toLowerCase().includes(searchTerm));
+      }
+
+      return filtered;
     }
 
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-      localStorage.setItem('theme', theme);
-      document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️' : '🌙';
+    function applyFilters() {
+      renderManga(getFilteredManga());
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        applyFilters();
+      });
     });
 
-    document.getElementById('authModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('authModal')) {
-        closeAuthModal();
-      }
-    });
+    searchBox.addEventListener('input', applyFilters);
 
-    document.getElementById('favoritesModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('favoritesModal')) {
-        closeFavorites();
-      }
-    });
+    // ========== Init ==========
+    loadManga();
   </script>
-
 </body>
 </html>
