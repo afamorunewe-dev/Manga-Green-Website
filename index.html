@@ -415,6 +415,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
     }
 
     .icon-btn:hover {
@@ -670,7 +671,7 @@
         <div class="contact-card">
           <h3>📧 Email</h3>
           <p>Have questions? Send us an email!</p>
-          <a href="mailto:contact@mangareen.com">contact@mangareen.com</a>
+          <a href="mailto:afamorunewe@gmail.com">afamorunewe@gmail.com</a>
         </div>
         <div class="contact-card">
           <h3>🐦 Twitter</h3>
@@ -678,7 +679,7 @@
           <a href="https://twitter.com/mangareen" target="_blank">@mangareen</a>
         </div>
         <div class="contact-card">
-          <h3>💬 Discord</h3>
+          <h3>���� Discord</h3>
           <p>Join our community of manga lovers!</p>
           <a href="https://discord.gg/mangareen" target="_blank">Join Discord</a>
         </div>
@@ -703,9 +704,14 @@
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+    let auth, db;
+    try {
+      firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      db = firebase.database();
+    } catch (e) {
+      console.warn("Firebase not fully loaded. Using local storage instead.");
+    }
 
     // ========== State Management ==========
     let currentUser = null;
@@ -713,49 +719,23 @@
     let favorites = [];
     let currentFilter = 'all';
 
-    // ========== Sample Manga Data ==========
+    // ========== Real Manga Data ==========
     const defaultMangaData = [
       {
         id: 1,
-        title: "One Piece",
-        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=One+Piece",
-        rating: "9.5/10",
-        status: "Ongoing"
+        title: "Boruto: Two Blue Vortex",
+        image: "company/BorutoOffpic12345678.jpg",
+        rating: "9.3/10",
+        status: "Ongoing",
+        link: "company/2BlueVortex.html"
       },
       {
         id: 2,
-        title: "Naruto",
-        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Naruto",
-        rating: "9.2/10",
-        status: "Completed"
-      },
-      {
-        id: 3,
-        title: "Attack on Titan",
-        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=AOT",
-        rating: "9.0/10",
-        status: "Completed"
-      },
-      {
-        id: 4,
-        title: "Death Note",
-        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Death+Note",
-        rating: "8.9/10",
-        status: "Completed"
-      },
-      {
-        id: 5,
-        title: "My Hero Academia",
-        image: "https://via.placeholder.com/220x300/0f5f2d/ffffff?text=MHA",
-        rating: "8.7/10",
-        status: "Ongoing"
-      },
-      {
-        id: 6,
-        title: "Demon Slayer",
-        image: "https://via.placeholder.com/220x300/2d7c47/ffffff?text=Demon+Slayer",
-        rating: "8.8/10",
-        status: "Ongoing"
+        title: "Jujutsu Kaisen",
+        image: "company/JJKoffpic.jpg",
+        rating: "9.1/10",
+        status: "Ongoing",
+        link: "company/JJK.html"
       }
     ];
 
@@ -801,11 +781,18 @@
       } else {
         currentUser = null;
         authContainer.innerHTML = `<button class="auth-btn" id="authBtn">Sign In</button>`;
-        document.getElementById('authBtn').addEventListener('click', signIn);
+        const newAuthBtn = document.getElementById('authBtn');
+        if (newAuthBtn) {
+          newAuthBtn.addEventListener('click', signIn);
+        }
       }
     }
 
     function signIn() {
+      if (!auth) {
+        alert('Firebase not configured. Sign in unavailable.');
+        return;
+      }
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
         .then(result => {
@@ -816,6 +803,7 @@
     }
 
     function logout() {
+      if (!auth) return;
       auth.signOut()
         .then(() => {
           console.log('Signed out');
@@ -827,27 +815,33 @@
     }
 
     // Auth state listener
-    auth.onAuthStateChanged(user => {
-      updateAuthUI(user);
-    });
+    if (auth) {
+      auth.onAuthStateChanged(user => {
+        updateAuthUI(user);
+      });
+    }
 
     // ========== Manga Functions ==========
     function loadManga() {
       // Try to load from Firebase
-      const mangaRef = db.ref('manga');
-      mangaRef.on('value', snapshot => {
-        if (snapshot.exists()) {
-          allMangaData = Object.values(snapshot.val());
-        } else {
-          // Use default data if nothing in Firebase
+      if (db) {
+        const mangaRef = db.ref('manga');
+        mangaRef.once('value', snapshot => {
+          if (snapshot.exists()) {
+            allMangaData = Object.values(snapshot.val());
+          } else {
+            allMangaData = defaultMangaData;
+          }
+          renderManga(allMangaData);
+        }).catch(error => {
+          console.warn('Firebase load failed, using default data:', error);
           allMangaData = defaultMangaData;
-        }
-        renderManga(allMangaData);
-      }, error => {
-        console.warn('Firebase load failed, using default data:', error);
+          renderManga(allMangaData);
+        });
+      } else {
         allMangaData = defaultMangaData;
         renderManga(allMangaData);
-      });
+      }
     }
 
     function renderManga(mangaList) {
@@ -856,19 +850,19 @@
         return;
       }
 
-      mangaContainer.innerHTML = mangaList.map(manga => `
+      mangaContainer.innerHTML = mangaList.map((manga, idx) => `
         <li class="manga-item">
           <div class="manga-image-wrapper">
             <img src="${manga.image}" alt="${manga.title}" onerror="this.src='https://via.placeholder.com/220x300/cccccc/666666?text=No+Image'">
             <div class="manga-overlay">
               <div class="overlay-icons">
-                <button class="icon-btn read-btn" title="Read">📖</button>
-                <button class="icon-btn favorite-btn ${favorites.includes(manga.id) ? 'favorited' : ''}" title="Add to Favorites">❤️</button>
+                <a href="${manga.link}" class="icon-btn read-btn" title="Read">📖</a>
+                <button class="icon-btn favorite-btn ${favorites.includes(manga.id) ? 'favorited' : ''}" title="Add to Favorites" data-id="${manga.id}">❤️</button>
               </div>
             </div>
           </div>
           <div class="manga-info">
-            <a href="#" class="manga-title">${manga.title}</a>
+            <a href="${manga.link}" class="manga-title">${manga.title}</a>
             <div class="manga-rating">${manga.rating}</div>
             <span class="manga-status">${manga.status}</span>
           </div>
@@ -876,10 +870,12 @@
       `).join('');
 
       // Add event listeners
-      document.querySelectorAll('.favorite-btn').forEach((btn, idx) => {
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          toggleFavorite(mangaList[Math.floor(idx / 2)]);
+          const id = parseInt(btn.getAttribute('data-id'));
+          const manga = allMangaData.find(m => m.id === id);
+          if (manga) toggleFavorite(manga);
         });
       });
     }
@@ -896,15 +892,19 @@
         favorites.push(manga.id);
       }
 
-      // Save to Firebase
-      db.ref(`users/${currentUser.uid}/favorites`).set(favorites);
+      // Save to Firebase or local storage
+      if (db && currentUser) {
+        db.ref(`users/${currentUser.uid}/favorites`).set(favorites);
+      } else {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }
       renderManga(getFilteredManga());
     }
 
     function loadUserFavorites() {
-      if (!currentUser) return;
+      if (!currentUser || !db) return;
       
-      db.ref(`users/${currentUser.uid}/favorites`).on('value', snapshot => {
+      db.ref(`users/${currentUser.uid}/favorites`).once('value', snapshot => {
         favorites = snapshot.val() || [];
         renderManga(getFilteredManga());
       });
