@@ -5,14 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MangaGreen - Your Manga Reading Platform</title>
   <link rel="icon" type="image/x-icon" href="Manga%20Green%20Favicon.png" />
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
-  
-  <!-- Google Sign-In Button -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
     * {
@@ -576,6 +568,207 @@
       border-top: 2px solid var(--primary-color);
     }
 
+    /* ========== AUTH MODAL STYLES ========== */
+    .auth-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .auth-modal.active {
+      display: flex;
+    }
+
+    .auth-modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    body.dark-mode .auth-modal-content {
+      background: rgba(30, 30, 30, 0.95);
+      color: var(--text-light);
+    }
+
+    .auth-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .auth-modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    body.dark-mode .auth-modal-title {
+      color: #7fd587;
+    }
+
+    .auth-modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+      transition: var(--transition);
+    }
+
+    .auth-modal-close:hover {
+      color: #333;
+    }
+
+    body.dark-mode .auth-modal-close:hover {
+      color: #ccc;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
+
+    body.dark-mode .form-group label {
+      color: var(--text-light);
+    }
+
+    .form-group input {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    body.dark-mode .form-group input {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #444;
+      color: var(--text-light);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(15, 95, 45, 0.1);
+    }
+
+    .auth-btn-submit {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 16px;
+    }
+
+    .auth-btn-submit:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    .auth-btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .auth-toggle {
+      text-align: center;
+      margin-top: 16px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    body.dark-mode .auth-toggle {
+      color: #aaa;
+    }
+
+    .auth-toggle a {
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .auth-toggle a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    .auth-message {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .auth-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .auth-message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    body.dark-mode .auth-message.error {
+      background: rgba(198, 40, 40, 0.2);
+      color: #ff6b6b;
+    }
+
+    body.dark-mode .auth-message.success {
+      background: rgba(46, 125, 50, 0.2);
+      color: #51cf66;
+    }
+
+    .attempts-warning {
+      background: #fff3cd;
+      color: #856404;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    body.dark-mode .attempts-warning {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffd700;
+    }
+
     /* Animations */
     @keyframes slideInDown {
       from {
@@ -643,6 +836,37 @@
     </div>
   </nav>
 
+  <!-- Auth Modal -->
+  <div class="auth-modal" id="authModal">
+    <div class="auth-modal-content">
+      <div class="auth-modal-header">
+        <h2 class="auth-modal-title" id="authModalTitle">Sign In</h2>
+        <button class="auth-modal-close" id="authModalClose">&times;</button>
+      </div>
+
+      <div id="authMessage" class="auth-message"></div>
+      <div id="attemptsWarning" class="attempts-warning" style="display: none;"></div>
+
+      <form class="auth-form" id="authForm">
+        <div class="form-group">
+          <label for="authUsername">Username</label>
+          <input type="text" id="authUsername" name="username" placeholder="Enter username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="authPassword">Password</label>
+          <input type="password" id="authPassword" name="password" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit" class="auth-btn-submit" id="authSubmitBtn">Sign In</button>
+      </form>
+
+      <div class="auth-toggle">
+        Don't have an account? <a id="toggleToRegister">Create one</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
   <div class="content-shell">
     <div class="hero-section">
@@ -679,7 +903,7 @@
           <a href="https://twitter.com/mangareen" target="_blank">@mangareen</a>
         </div>
         <div class="contact-card">
-          <h3>���� Discord</h3>
+          <h3>💬 Discord</h3>
           <p>Join our community of manga lovers!</p>
           <a href="https://discord.gg/mangareen" target="_blank">Join Discord</a>
         </div>
@@ -693,31 +917,18 @@
   </footer>
 
   <script>
-    // ========== Firebase Config ==========
-    const firebaseConfig = {
-      apiKey: "AIzaSyA3i0nZX-fY8QZ_abc123def456ghi789jkl",
-      authDomain: "mangareen-123456.firebaseapp.com",
-      projectId: "mangareen-123456",
-      storageBucket: "mangareen-123456.appspot.com",
-      messagingSenderId: "123456789012",
-      appId: "1:123456789012:web:abc123def456ghi789"
-    };
+    // ========== CONFIG ==========
+    const API_BASE_URL = 'http://localhost:5000';
+    const SESSION_TOKEN_KEY = 'manga_session_token';
+    const SESSION_USER_KEY = 'manga_session_user';
 
-    // Initialize Firebase
-    let auth, db;
-    try {
-      firebase.initializeApp(firebaseConfig);
-      auth = firebase.auth();
-      db = firebase.database();
-    } catch (e) {
-      console.warn("Firebase not fully loaded. Using local storage instead.");
-    }
-
-    // ========== State Management ==========
+    // ========== STATE MANAGEMENT ==========
     let currentUser = null;
+    let sessionToken = null;
     let allMangaData = [];
     let favorites = [];
     let currentFilter = 'all';
+    let isLoginMode = true;
 
     // ========== Real Manga Data ==========
     const defaultMangaData = [
@@ -747,7 +958,247 @@
     const mangaContainer = document.getElementById('mangaContainer');
     const filterBtns = document.querySelectorAll('.filter-btn');
 
-    // ========== Theme Toggle ==========
+    // Auth Modal Elements
+    const authModal = document.getElementById('authModal');
+    const authModalClose = document.getElementById('authModalClose');
+    const authForm = document.getElementById('authForm');
+    const authUsername = document.getElementById('authUsername');
+    const authPassword = document.getElementById('authPassword');
+    const authSubmitBtn = document.getElementById('authSubmitBtn');
+    const authMessage = document.getElementById('authMessage');
+    const attemptsWarning = document.getElementById('attemptsWarning');
+    const authModalTitle = document.getElementById('authModalTitle');
+    const toggleToRegister = document.getElementById('toggleToRegister');
+
+    // ========== INITIALIZATION ==========
+    function init() {
+      // Check if user has existing session
+      sessionToken = localStorage.getItem(SESSION_TOKEN_KEY);
+      const storedUser = localStorage.getItem(SESSION_USER_KEY);
+
+      if (sessionToken) {
+        verifySession();
+      } else {
+        updateAuthUI(null);
+      }
+
+      loadManga();
+      setupEventListeners();
+    }
+
+    // ========== EVENT LISTENERS ==========
+    function setupEventListeners() {
+      authBtn.addEventListener('click', openAuthModal);
+      authModalClose.addEventListener('click', closeAuthModal);
+      authForm.addEventListener('submit', handleAuthSubmit);
+      toggleToRegister.addEventListener('click', toggleAuthMode);
+
+      themeToggle.addEventListener('click', toggleTheme);
+      searchBox.addEventListener('input', applyFilters);
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter');
+          applyFilters();
+        });
+      });
+
+      // Close modal on outside click
+      authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) {
+          closeAuthModal();
+        }
+      });
+    }
+
+    // ========== AUTH MODAL FUNCTIONS ==========
+    function openAuthModal() {
+      isLoginMode = true;
+      resetAuthForm();
+      authModalTitle.textContent = 'Sign In';
+      authSubmitBtn.textContent = 'Sign In';
+      toggleToRegister.textContent = "Don't have an account? Create one";
+      authModal.classList.add('active');
+    }
+
+    function closeAuthModal() {
+      authModal.classList.remove('active');
+      resetAuthForm();
+    }
+
+    function resetAuthForm() {
+      authForm.reset();
+      authMessage.classList.remove('error', 'success');
+      authMessage.textContent = '';
+      authMessage.style.display = 'none';
+      attemptsWarning.style.display = 'none';
+    }
+
+    function toggleAuthMode() {
+      isLoginMode = !isLoginMode;
+      resetAuthForm();
+
+      if (isLoginMode) {
+        authModalTitle.textContent = 'Sign In';
+        authSubmitBtn.textContent = 'Sign In';
+        toggleToRegister.innerHTML = "Don't have an account? <a>Create one</a>";
+      } else {
+        authModalTitle.textContent = 'Create Account';
+        authSubmitBtn.textContent = 'Register';
+        toggleToRegister.innerHTML = "Already have an account? <a>Sign in</a>";
+      }
+
+      toggleToRegister.querySelector('a').addEventListener('click', toggleAuthMode);
+    }
+
+    function showAuthMessage(message, isError = false) {
+      authMessage.textContent = message;
+      authMessage.classList.remove('error', 'success');
+      authMessage.classList.add(isError ? 'error' : 'success');
+      authMessage.style.display = 'block';
+    }
+
+    function showAttemptsWarning(attempts) {
+      attemptsWarning.textContent = `⚠️ ${attempts} attempts remaining before account lockout`;
+      attemptsWarning.style.display = 'block';
+    }
+
+    // ========== AUTH API CALLS ==========
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+
+      const username = authUsername.value.trim();
+      const password = authPassword.value.trim();
+
+      if (!username || !password) {
+        showAuthMessage('Username and password required', true);
+        return;
+      }
+
+      authSubmitBtn.disabled = true;
+
+      try {
+        if (isLoginMode) {
+          await loginUser(username, password);
+        } else {
+          await registerUser(username, password);
+        }
+      } catch (error) {
+        showAuthMessage(error.message, true);
+      } finally {
+        authSubmitBtn.disabled = false;
+      }
+    }
+
+    async function loginUser(username, password) {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Save session
+        sessionToken = data.token;
+        currentUser = data.username;
+        localStorage.setItem(SESSION_TOKEN_KEY, sessionToken);
+        localStorage.setItem(SESSION_USER_KEY, currentUser);
+
+        showAuthMessage(`Welcome, ${currentUser}!`, false);
+        setTimeout(() => {
+          closeAuthModal();
+          updateAuthUI(currentUser);
+        }, 1000);
+      } else {
+        if (data.locked) {
+          showAuthMessage('Account locked. Too many failed attempts.', true);
+        } else {
+          showAuthMessage(data.message || 'Login failed', true);
+          if (data.attempts_left !== undefined) {
+            showAttemptsWarning(data.attempts_left);
+          }
+        }
+      }
+    }
+
+    async function registerUser(username, password) {
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showAuthMessage(data.message, false);
+        setTimeout(() => {
+          isLoginMode = true;
+          toggleAuthMode();
+        }, 1500);
+      } else {
+        showAuthMessage(data.message || 'Registration failed', true);
+      }
+    }
+
+    async function verifySession() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/verify-session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: sessionToken })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          currentUser = data.username;
+          updateAuthUI(currentUser);
+        } else {
+          // Session expired
+          localStorage.removeItem(SESSION_TOKEN_KEY);
+          localStorage.removeItem(SESSION_USER_KEY);
+          sessionToken = null;
+          currentUser = null;
+          updateAuthUI(null);
+        }
+      } catch (error) {
+        console.warn('Could not verify session:', error);
+        updateAuthUI(null);
+      }
+    }
+
+    function logoutUser() {
+      if (sessionToken) {
+        fetch(`${API_BASE_URL}/api/logout`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: sessionToken })
+        }).catch(e => console.warn('Logout error:', e));
+      }
+
+      localStorage.removeItem(SESSION_TOKEN_KEY);
+      localStorage.removeItem(SESSION_USER_KEY);
+      sessionToken = null;
+      currentUser = null;
+      favorites = [];
+      updateAuthUI(null);
+      renderManga(allMangaData);
+    }
+
+    // ========== THEME TOGGLE ==========
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
@@ -764,84 +1215,29 @@
       updateThemeIcon();
     }
 
-    themeToggle.addEventListener('click', toggleTheme);
-
-    // ========== Auth Functions ==========
+    // ========== AUTH UI UPDATES ==========
     function updateAuthUI(user) {
       if (user) {
-        currentUser = user;
         authContainer.innerHTML = `
           <div class="user-profile">
-            <span>${user.displayName || user.email}</span>
+            <span>${user}</span>
             <button class="logout-btn" id="logoutBtn">Logout</button>
           </div>
         `;
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-        loadUserFavorites();
+        document.getElementById('logoutBtn').addEventListener('click', logoutUser);
       } else {
-        currentUser = null;
         authContainer.innerHTML = `<button class="auth-btn" id="authBtn">Sign In</button>`;
         const newAuthBtn = document.getElementById('authBtn');
         if (newAuthBtn) {
-          newAuthBtn.addEventListener('click', signIn);
+          newAuthBtn.addEventListener('click', openAuthModal);
         }
       }
     }
 
-    function signIn() {
-      if (!auth) {
-        alert('Firebase not configured. Sign in unavailable.');
-        return;
-      }
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(result => {
-          console.log('Signed in:', result.user);
-          updateAuthUI(result.user);
-        })
-        .catch(error => console.error('Sign in error:', error));
-    }
-
-    function logout() {
-      if (!auth) return;
-      auth.signOut()
-        .then(() => {
-          console.log('Signed out');
-          updateAuthUI(null);
-          favorites = [];
-          renderManga(allMangaData);
-        })
-        .catch(error => console.error('Logout error:', error));
-    }
-
-    // Auth state listener
-    if (auth) {
-      auth.onAuthStateChanged(user => {
-        updateAuthUI(user);
-      });
-    }
-
-    // ========== Manga Functions ==========
+    // ========== MANGA FUNCTIONS ==========
     function loadManga() {
-      // Try to load from Firebase
-      if (db) {
-        const mangaRef = db.ref('manga');
-        mangaRef.once('value', snapshot => {
-          if (snapshot.exists()) {
-            allMangaData = Object.values(snapshot.val());
-          } else {
-            allMangaData = defaultMangaData;
-          }
-          renderManga(allMangaData);
-        }).catch(error => {
-          console.warn('Firebase load failed, using default data:', error);
-          allMangaData = defaultMangaData;
-          renderManga(allMangaData);
-        });
-      } else {
-        allMangaData = defaultMangaData;
-        renderManga(allMangaData);
-      }
+      allMangaData = defaultMangaData;
+      renderManga(allMangaData);
     }
 
     function renderManga(mangaList) {
@@ -882,7 +1278,8 @@
 
     function toggleFavorite(manga) {
       if (!currentUser) {
-        alert('Please sign in to add favorites!');
+        showAuthMessage('Please sign in to add favorites!', true);
+        setTimeout(openAuthModal, 500);
         return;
       }
 
@@ -892,25 +1289,11 @@
         favorites.push(manga.id);
       }
 
-      // Save to Firebase or local storage
-      if (db && currentUser) {
-        db.ref(`users/${currentUser.uid}/favorites`).set(favorites);
-      } else {
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-      }
+      localStorage.setItem('favorites', JSON.stringify(favorites));
       renderManga(getFilteredManga());
     }
 
-    function loadUserFavorites() {
-      if (!currentUser || !db) return;
-      
-      db.ref(`users/${currentUser.uid}/favorites`).once('value', snapshot => {
-        favorites = snapshot.val() || [];
-        renderManga(getFilteredManga());
-      });
-    }
-
-    // ========== Filter & Search ==========
+    // ========== FILTER & SEARCH ==========
     function getFilteredManga() {
       let filtered = allMangaData;
 
@@ -934,19 +1317,8 @@
       renderManga(getFilteredManga());
     }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.getAttribute('data-filter');
-        applyFilters();
-      });
-    });
-
-    searchBox.addEventListener('input', applyFilters);
-
-    // ========== Init ==========
-    loadManga();
+    // ========== INIT ==========
+    init();
   </script>
 </body>
 </html>
